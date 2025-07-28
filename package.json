@@ -1,0 +1,30 @@
+{
+  "name": "carelog",
+  "version": "1.0.0",
+  "description": "A web application to manage and access electronic medical records. The platform allows doctors to view patient histories, add medical notes, and prescribe treatments, while patients can securely access their medical records, prescriptions, and appointment history anytime, anywhere.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raxelf/CareLog.git"
+  },
+  "keywords": [],
+  "author": "raxelf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raxelf/CareLog/issues"
+  },
+  "homepage": "https://github.com/raxelf/CareLog#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "sequelize-cli": "^6.6.3"
+  }
+}
