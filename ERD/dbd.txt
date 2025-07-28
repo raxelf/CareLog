@@ -1,0 +1,77 @@
+Table Users {
+  id SERIAL pk
+  username VARCHAR
+  password TEXT
+  role VARCHAR
+  createdAt TIMESTAMP
+  updatedAt TIMESTAMP
+}
+
+Table Profiles {
+  id SERIAL pk
+  name VARCHAR
+  email VARCHAR
+  address VARCHAR
+  phoneNumber VARCHAR
+  status VARCHAR
+  UserId INTEGER
+  createdAt TIMESTAMP
+  updatedAt TIMESTAMP
+}
+
+Table Queues {
+  id SERIAL pk
+  status VARCHAR
+  scheduledAt DATE
+  DoctorId INTEGER
+  PatientId INTEGER
+  createdAt TIMESTAMP
+  updatedAt TIMESTAMP
+}
+
+Table MedicalRecords {
+  id SERIAL pk
+  diagnosis VARCHAR
+  DoctorId INTEGER
+  QueueId INTEGER
+  createdAt TIMESTAMP
+  updatedAt TIMESTAMP
+}
+
+Table Prescriptions {
+  id SERIAL pk
+  MedicalRecordId INTEGER
+  createdAt TIMESTAMP
+  updatedAt TIMESTAMP
+}
+
+Table PrescriptionDetails {
+  id SERIAL pk
+  quantity INTEGER
+  dosage VARCHAR
+  PrescriptionId INTEGER
+  MedicineId INTEGER
+  createdAt TIMESTAMP
+  updatedAt TIMESTAMP
+}
+
+Table Medicines {
+  id SERIAL pk
+  name VARCHAR
+  stock INTEGER
+  unit VARCHAR
+  createdAt TIMESTAMP
+  updatedAt TIMESTAMP
+}
+
+Ref: Profiles.UserId - Users.id
+
+Ref: Queues.PatientId > Users.id
+
+Ref: MedicalRecords.DoctorId > Users.id
+Ref: MedicalRecords.QueueId > Queues.id
+
+Ref: PrescriptionDetails.PrescriptionId > Prescriptions.id
+Ref: PrescriptionDetails.MedicineId < Medicines.id
+
+Ref: Prescriptions.MedicalRecordId - MedicalRecords.id
