@@ -1,6 +1,6 @@
 Table Users {
   id SERIAL pk
-  username VARCHAR
+  email VARCHAR
   password TEXT
   role VARCHAR
   createdAt TIMESTAMP
@@ -10,7 +10,6 @@ Table Users {
 Table Profiles {
   id SERIAL pk
   name VARCHAR
-  email VARCHAR
   address VARCHAR
   phoneNumber VARCHAR
   status VARCHAR
@@ -67,6 +66,7 @@ Table Medicines {
 Ref: Profiles.UserId - Users.id
 
 Ref: Queues.PatientId > Users.id
+Ref: Queues.DoctorId > Users.id
 
 Ref: MedicalRecords.DoctorId > Users.id
 Ref: MedicalRecords.QueueId > Queues.id
