@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Queue.init({
     status: DataTypes.STRING,
+    reason: DataTypes.STRING,
     scheduledAt: DataTypes.DATE,
     DoctorId: DataTypes.INTEGER,
     PatientId: DataTypes.INTEGER

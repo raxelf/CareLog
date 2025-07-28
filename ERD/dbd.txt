@@ -21,6 +21,7 @@ Table Profiles {
 Table Queues {
   id SERIAL pk
   status VARCHAR
+  reason VARCHAR
   scheduledAt DATE
   DoctorId INTEGER
   PatientId INTEGER
