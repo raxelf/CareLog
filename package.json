@@ -2,13 +2,14 @@
   "name": "carelog",
   "version": "1.0.0",
   "description": "A web application to manage and access electronic medical records. The platform allows doctors to view patient histories, add medical notes, and prescribe treatments, while patients can securely access their medical records, prescriptions, and appointment history anytime, anywhere.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate",
     "seed": "npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:seed:all",
     "resetDB": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "dev": "npx nodemon app.js"
+    "dev": "npx nodemon app.js",
+    "build:css": "npx @tailwindcss/cli -i ./public/assets/css/input.css -o ./public/assets/css/output.css --watch"
   },
   "repository": {
     "type": "git",
@@ -22,13 +23,16 @@
   },
   "homepage": "https://github.com/raxelf/CareLog#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "pg": "^8.16.3",
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.1.11",
     "nodemon": "^3.1.10",
-    "sequelize-cli": "^6.6.3"
+    "sequelize-cli": "^6.6.3",
+    "tailwindcss": "^4.1.11"
   }
 }
