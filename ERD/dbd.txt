@@ -40,6 +40,7 @@ Table MedicalRecords {
 Table Prescriptions {
   id SERIAL pk
   MedicalRecordId INTEGER
+  PatientId INTEGER
   createdAt TIMESTAMP
   updatedAt TIMESTAMP
 }
@@ -72,6 +73,7 @@ Ref: MedicalRecords.DoctorId > Users.id
 Ref: MedicalRecords.QueueId > Queues.id
 
 Ref: PrescriptionDetails.PrescriptionId > Prescriptions.id
-Ref: PrescriptionDetails.MedicineId < Medicines.id
+Ref: PrescriptionDetails.MedicineId > Medicines.id
 
-Ref: Prescriptions.MedicalRecordId - MedicalRecords.id
+Ref: Prescriptions.MedicalRecordId > MedicalRecords.id
+Ref: Prescriptions.PatientId > Users.id

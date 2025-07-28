@@ -11,6 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Queue.belongsTo(models.User, {
+        foreignKey: 'PatientId',
+        as: 'Patient'
+      });
+
+      Queue.belongsTo(models.User, {
+        foreignKey: 'DoctorId',
+        as: 'Doctor'
+      });
+
+      Queue.hasMany(models.MedicalRecord, {
+        foreignKey: "QueueId"
+      });
     }
   }
   Queue.init({
