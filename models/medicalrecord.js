@@ -26,7 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   MedicalRecord.init({
+    anamnesis: DataTypes.STRING,
     diagnosis: DataTypes.STRING,
+    doctorNotes: DataTypes.STRING,
     status: DataTypes.STRING,
     DoctorId: DataTypes.INTEGER,
   }, {

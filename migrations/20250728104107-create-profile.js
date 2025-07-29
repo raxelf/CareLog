@@ -21,6 +21,9 @@ module.exports = {
       phoneNumber: {
         type: Sequelize.STRING
       },
+      specialization: {
+        type: Sequelize.STRING
+      },
       status: {
         type: Sequelize.STRING
       },

@@ -9,7 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      anamnesis: {
+        type: Sequelize.STRING
+      },
       diagnosis: {
+        type: Sequelize.STRING
+      },
+      doctorNotes: {
         type: Sequelize.STRING
       },
       status: {
