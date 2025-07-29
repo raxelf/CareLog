@@ -12,6 +12,9 @@ module.exports = {
       diagnosis: {
         type: Sequelize.STRING
       },
+      status: {
+        type: Sequelize.STRING
+      },
       DoctorId: {
         type: Sequelize.INTEGER,
         references: {

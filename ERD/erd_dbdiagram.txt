@@ -42,15 +42,8 @@ Table Histories {
 Table MedicalRecords {
   id SERIAL pk
   diagnosis VARCHAR
+  status VARCHAR
   DoctorId INTEGER
-  createdAt TIMESTAMP
-  updatedAt TIMESTAMP
-}
-
-Table RequestMedicalRecords {
-  id SERIAL pk
-  MedicalRecordId INTEGER
-  PatientId INTEGER
   createdAt TIMESTAMP
   updatedAt TIMESTAMP
 }
@@ -95,8 +88,5 @@ Ref: PrescriptionDetails.PrescriptionId > Prescriptions.id
 Ref: PrescriptionDetails.MedicineId > Medicines.id
 
 Ref: Prescriptions.MedicalRecordId > MedicalRecords.id
-
-Ref: RequestMedicalRecords.PatientId > Users.id
-Ref: RequestMedicalRecords.MedicalRecordId > MedicalRecords.id
 
 Ref: Histories.QueueId > Queues.id
