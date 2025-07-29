@@ -12,9 +12,6 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      stock: {
-        type: Sequelize.INTEGER
-      },
       unit: {
         type: Sequelize.STRING
       },

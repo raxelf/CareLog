@@ -71,7 +71,6 @@ Table PrescriptionDetails {
 Table Medicines {
   id SERIAL pk
   name VARCHAR
-  stock INTEGER
   unit VARCHAR
   createdAt TIMESTAMP
   updatedAt TIMESTAMP
