@@ -10,6 +10,7 @@ Table Users {
 Table Profiles {
   id SERIAL pk
   name VARCHAR
+  gender VARCHAR
   address VARCHAR
   phoneNumber VARCHAR
   status VARCHAR
@@ -29,11 +30,27 @@ Table Queues {
   updatedAt TIMESTAMP
 }
 
+Table Histories {
+  id SERIAL pk
+  MedicalRecordId INTEGER
+  PrescriptionId INTEGER
+  QueueId INTEGER
+  createdAt TIMESTAMP
+  updatedAt TIMESTAMP
+}
+
 Table MedicalRecords {
   id SERIAL pk
   diagnosis VARCHAR
   DoctorId INTEGER
-  QueueId INTEGER
+  createdAt TIMESTAMP
+  updatedAt TIMESTAMP
+}
+
+Table RequestMedicalRecords {
+  id SERIAL pk
+  MedicalRecordId INTEGER
+  PatientId INTEGER
   createdAt TIMESTAMP
   updatedAt TIMESTAMP
 }
@@ -41,7 +58,6 @@ Table MedicalRecords {
 Table Prescriptions {
   id SERIAL pk
   MedicalRecordId INTEGER
-  PatientId INTEGER
   createdAt TIMESTAMP
   updatedAt TIMESTAMP
 }
@@ -70,11 +86,17 @@ Ref: Profiles.UserId - Users.id
 Ref: Queues.PatientId > Users.id
 Ref: Queues.DoctorId > Users.id
 
+Ref: Histories.MedicalRecordId > MedicalRecords.id
+Ref: Histories.PrescriptionId > Prescriptions.id
+
 Ref: MedicalRecords.DoctorId > Users.id
-Ref: MedicalRecords.QueueId > Queues.id
 
 Ref: PrescriptionDetails.PrescriptionId > Prescriptions.id
 Ref: PrescriptionDetails.MedicineId > Medicines.id
 
 Ref: Prescriptions.MedicalRecordId > MedicalRecords.id
-Ref: Prescriptions.PatientId > Users.id
+
+Ref: RequestMedicalRecords.PatientId > Users.id
+Ref: RequestMedicalRecords.MedicalRecordId > MedicalRecords.id
+
+Ref: Histories.QueueId > Queues.id

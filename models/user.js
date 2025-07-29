@@ -20,19 +20,14 @@ module.exports = (sequelize, DataTypes) => {
         as: 'Patient'
       });
 
-      User.hasMany(models.Prescription, {
-        foreignKey: "PatientId",
-        as: 'Patient'
-      });
-
       User.hasMany(models.Queue, {
         foreignKey: "DoctorId",
         as: 'Doctor'
       });
 
-      User.hasMany(models.MedicalRecord, {
-        foreignKey: "DoctorId",
-        as: "Doctor"
+      User.hasMany(models.RequestMedicalRecords, {
+        foreignKey: "PatientId",
+        as: 'Patient'
       });
     }
   }

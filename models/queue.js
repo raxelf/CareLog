@@ -21,9 +21,9 @@ module.exports = (sequelize, DataTypes) => {
         as: 'Doctor'
       });
 
-      Queue.hasMany(models.MedicalRecord, {
+      Queue.hasMany(models.History, {
         foreignKey: "QueueId"
-      });
+      })
     }
   }
   Queue.init({
