@@ -2,29 +2,23 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Profiles', {
+    await queryInterface.createTable('RequestMedicalRecords', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      MedicalRecordId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'MedicalRecords',
+          key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade',
       },
-      gender: {
-        type: Sequelize.STRING
-      },
-      address: {
-        type: Sequelize.STRING
-      },
-      phoneNumber: {
-        type: Sequelize.STRING
-      },
-      status: {
-        type: Sequelize.STRING
-      },
-      UserId: {
+      PatientId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Users',
@@ -44,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Profiles');
+    await queryInterface.dropTable('RequestMedicalRecords');
   }
 };

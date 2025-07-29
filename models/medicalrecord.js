@@ -16,11 +16,11 @@ module.exports = (sequelize, DataTypes) => {
         as: "Doctor"
       });
 
-      MedicalRecord.belongsTo(models.Queue, {
-        foreignKey: "QueueId"
+      MedicalRecord.hasMany(models.Prescription, {
+        foreignKey: "MedicalRecordId"
       });
 
-      MedicalRecord.hasMany(models.Prescription, {
+      MedicalRecord.hasMany(models.History, {
         foreignKey: "MedicalRecordId"
       });
     }
@@ -28,7 +28,6 @@ module.exports = (sequelize, DataTypes) => {
   MedicalRecord.init({
     diagnosis: DataTypes.STRING,
     DoctorId: DataTypes.INTEGER,
-    QueueId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'MedicalRecord',

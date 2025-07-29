@@ -21,15 +21,6 @@ module.exports = {
         onUpdate: 'cascade',
         onDelete: 'cascade',
       },
-      QueueId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Queues',
-          key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade',
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
