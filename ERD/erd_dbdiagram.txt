@@ -13,6 +13,7 @@ Table Profiles {
   gender VARCHAR
   address VARCHAR
   phoneNumber VARCHAR
+  specialization VARCHAR
   status VARCHAR
   UserId INTEGER
   createdAt TIMESTAMP
@@ -41,7 +42,9 @@ Table Histories {
 
 Table MedicalRecords {
   id SERIAL pk
+  anamnesis VARCHAR
   diagnosis VARCHAR
+  doctorNotes VARCHAR
   status VARCHAR
   DoctorId INTEGER
   createdAt TIMESTAMP
