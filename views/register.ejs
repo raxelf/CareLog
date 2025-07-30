@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar | CareLog</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="stylesheet" href="/assets/css/output.css">
+</head>
+<body class="bg-[#F8FAFC]">
+    <%- include('./partials/navbar.ejs') %>
+
+    <div class="flex justify-center p-20 text-[#64748B]">
+        <div class="bg-white shadow-md w-[50%] rounded-xl py-20 px-16">
+            <div class="flex justify-center text-center items-center">
+                <div class="flex flex-col gap-5">
+                    <div class="flex gap-5 items-center md:text-lg text-sm justify-center">
+                        <img src="/assets/images/CareLog-Logo.png" alt="CareLog Logo" class="w-24 h-24">
+                        <span class="font-bold text-xl text-[#0B2C46]">
+                            CareLog
+                        </span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <p class="text-2xl font-bold text-[#0B2C46]">Daftar</p>
+                        <p class="text-md">Silahkan daftar terlebih dahulu</p>
+                    </div>
+                </div>
+            </div>
+
+            <form action="/register" method="post" class="mt-6 flex flex-col gap-8">
+                <div class="w-full flex flex-col gap-2">
+                    <label for="name">Nama Lengkap</label>
+                    <input type="text" name="name" id="name" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="Masukkan nama lengkap">
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <label for="gender">Jenis Kelamin</label>
+                    <select name="gender" id="gender" class="bg-[#F8FAFC] px-5 py-3 rounded-md">
+                        <option value="" selected disabled>Pilih Jenis Kelamin</option>
+                        <option value="Pria">Pria</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <label for="birthOfDate">Tanggal Lahir</label>
+                    <input type="date" name="birthOfDate" id="birthOfDate" class="bg-[#F8FAFC] px-5 py-3 rounded-md">
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <label for="address">Alamat</label>
+                    <input type="text" name="address" id="address" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="Masukkan alamat">
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <label for="phoneNumber">No. Handphone</label>
+                    <input type="text" name="phoneNumber" id="phoneNumber" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="Masukkan nomor handphone">
+                </div>
+
+                <div class="w-full flex flex-col gap-2">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="email@mail.com">
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="************">
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <label for="confirmPassword">Konfirmasi Password</label>
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="************">
+                </div>
+                
+                <button type="submit" class="py-4 cursor-pointer text-white bg-[#2B96CA] rounded-lg">
+                    Daftar
+                </button>
+                <div class="text-center font-medium">Sudah punya akun? <a href="/login" class="text-[#2B96CA] hover:underline">Masuk</a></div>
+            </form>
+        </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
