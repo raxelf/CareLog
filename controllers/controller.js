@@ -19,6 +19,16 @@ class Controller {
         }
     }
 
+    static async getRegister (req, res) {
+        try {
+            res.render("register");
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
     static async X (req, res) {
         try {
             res.send("x");

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareLog - Masuk</title>
+    <title>CareLog - Daftar</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -25,12 +25,34 @@
                         </span>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <p class="text-2xl font-bold text-[#0B2C46]">Masuk</p>
-                        <p class="text-md">Silahkan masukkan akunmu disini</p>
+                        <p class="text-2xl font-bold text-[#0B2C46]">Daftar</p>
+                        <p class="text-md">Silahkan daftar terlebih dahulu</p>
                     </div>
                 </div>
             </div>
-            <form action="/login" method="post" class="mt-6 flex flex-col gap-8">
+
+            <form action="/register" method="post" class="mt-6 flex flex-col gap-8">
+                <div class="w-full flex flex-col gap-2">
+                    <label for="name">Nama</label>
+                    <input type="text" name="name" id="name" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="Masukkan nama">
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <label for="gender">Jenis Kelamin</label>
+                    <select name="gender" id="gender" class="bg-[#F8FAFC] px-5 py-3 rounded-md">
+                        <option value="" selected disabled>Pilih Jenis Kelamin</option>
+                        <option value="Pria">Pria</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <label for="address">Alamat</label>
+                    <input type="text" name="address" id="address" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="Masukkan alamat">
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <label for="phoneNumber">No. Handphone</label>
+                    <input type="text" name="phoneNumber" id="phoneNumber" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="Masukkan nomor handphone">
+                </div>
+
                 <div class="w-full flex flex-col gap-2">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="email" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="email@mail.com">
@@ -39,11 +61,15 @@
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="************">
                 </div>
+                <div class="w-full flex flex-col gap-2">
+                    <label for="confirmPassword">Konfirmasi Password</label>
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="************">
+                </div>
                 
                 <button type="submit" class="py-4 cursor-pointer text-white bg-[#2B96CA] rounded-lg">
-                    Masuk
+                    Daftar
                 </button>
-                <div class="text-center font-medium">Belum punya akun? <a href="/register" class="text-[#2B96CA] hover:underline">Daftar</a></div>
+                <div class="text-center font-medium">Sudah punya akun? <a href="/login" class="text-[#2B96CA] hover:underline">Masuk</a></div>
             </form>
         </div>
     </div>
