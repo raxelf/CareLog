@@ -9,6 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      emrCode: {
+        type: Sequelize.STRING
+      },
       anamnesis: {
         type: Sequelize.STRING
       },

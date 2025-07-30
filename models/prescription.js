@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Prescription.init({
+    prescriptionCode: DataTypes.STRING,
     MedicalRecordId: DataTypes.INTEGER
   }, {
     sequelize,
