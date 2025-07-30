@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CareLog - Daftar</title>
+    <title>Daftar | CareLog</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -33,8 +33,8 @@
 
             <form action="/register" method="post" class="mt-6 flex flex-col gap-8">
                 <div class="w-full flex flex-col gap-2">
-                    <label for="name">Nama</label>
-                    <input type="text" name="name" id="name" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="Masukkan nama">
+                    <label for="name">Nama Lengkap</label>
+                    <input type="text" name="name" id="name" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="Masukkan nama lengkap">
                 </div>
                 <div class="w-full flex flex-col gap-2">
                     <label for="gender">Jenis Kelamin</label>
@@ -43,6 +43,10 @@
                         <option value="Pria">Pria</option>
                         <option value="Perempuan">Perempuan</option>
                     </select>
+                </div>
+                <div class="w-full flex flex-col gap-2">
+                    <label for="birthOfDate">Tanggal Lahir</label>
+                    <input type="date" name="birthOfDate" id="birthOfDate" class="bg-[#F8FAFC] px-5 py-3 rounded-md">
                 </div>
                 <div class="w-full flex flex-col gap-2">
                     <label for="address">Alamat</label>
