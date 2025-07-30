@@ -11,6 +11,7 @@ Table Profiles {
   id SERIAL pk
   name VARCHAR
   gender VARCHAR
+  birthOfDate DATE
   address VARCHAR
   phoneNumber VARCHAR
   specialization VARCHAR
@@ -42,6 +43,7 @@ Table Histories {
 
 Table MedicalRecords {
   id SERIAL pk
+  emrCode VARCHAR
   anamnesis VARCHAR
   diagnosis VARCHAR
   doctorNotes VARCHAR
@@ -53,6 +55,7 @@ Table MedicalRecords {
 
 Table Prescriptions {
   id SERIAL pk
+  prescriptionCode VARCHAR
   MedicalRecordId INTEGER
   createdAt TIMESTAMP
   updatedAt TIMESTAMP
