@@ -51,7 +51,53 @@ class Controller {
 
     static async getPatientHistory (req, res) {
         try {
-            res.render("patients/history", { currentURL: req.originalUrl })
+            let { filter } = req.query;
+
+            res.render("patients/history", { currentURL: req.originalUrl, filter })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
+    static async getDoctorDashboard (req, res) {
+        try {
+            res.render("doctors/dashboard", { currentURL: req.originalUrl })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
+    static async getDoctorQueue (req, res) {
+        try {
+            let { filter } = req.query;
+
+            res.render("doctors/queue", { currentURL: req.originalUrl, filter })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
+    static async getDoctorHistory (req, res) {
+        try {
+            res.render("doctors/history", { currentURL: req.originalUrl })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
+    static async getDoctorEmrRequest (req, res) {
+        try {
+            let { filter } = req.query;
+            
+            res.render("doctors/emrRequest", { currentURL: req.originalUrl, filter })
         } catch (err) {
             console.log(err);
 

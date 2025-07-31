@@ -16,5 +16,11 @@ router.get('/patient/queue', Controller.getPatientQueue);
 router.post('/patient/queue', Controller.X);
 router.get('/patient/history', Controller.getPatientHistory);
 
+// Doctor
+router.get('/doctor', Controller.getDoctorDashboard);
+router.get('/doctor/queue', Controller.getDoctorQueue);
+router.get('/doctor/history', Controller.getDoctorHistory);
+router.get('/doctor/emr', Controller.getDoctorEmrRequest);
+
 
 module.exports = router;
