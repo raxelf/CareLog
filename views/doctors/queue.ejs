@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="/assets/css/output.css">
 </head>
 <body>
-    <div class="flex bg-[#F8FAFC] h-screen gap-2 w-full">
+    <div class="flex bg-[#F8FAFC] <%= queues.length > 1 ? 'h-full' : 'h-screen' %> gap-2 w-full">
         <%- include('../partials/sidebarDoctor.ejs') %>
 
-        <div class="h-screen text-[#64748B] w-full">
+        <div class="h-full text-[#64748B] w-full">
             <div class="p-20 flex flex-col gap-12">
                 <div class="flex-col gap-10 flex">
                     <h1 class="text-xl font-bold text-[#0B2C46]">Antrian Pasien</h1>
@@ -71,6 +71,10 @@
                             </div>
                         </div>
                     <% }) %>
+                <% } else { %>
+                    <div class="text-[#94A3B8] italic">
+                        Belum ada antrian.
+                    </div>
                 <% } %>
             </div>
         </div>

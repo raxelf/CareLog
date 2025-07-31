@@ -12,7 +12,7 @@ module.exports = {
       quantity: {
         type: Sequelize.INTEGER
       },
-      dosage: {
+      instruction: {
         type: Sequelize.STRING
       },
       PrescriptionId: {

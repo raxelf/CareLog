@@ -64,7 +64,7 @@ Table Prescriptions {
 Table PrescriptionDetails {
   id SERIAL pk
   quantity INTEGER
-  dosage VARCHAR
+  instruction VARCHAR
   PrescriptionId INTEGER
   MedicineId INTEGER
   createdAt TIMESTAMP
@@ -75,6 +75,7 @@ Table Medicines {
   id SERIAL pk
   name VARCHAR
   unit VARCHAR
+  dosage VARCHAR
   createdAt TIMESTAMP
   updatedAt TIMESTAMP
 }

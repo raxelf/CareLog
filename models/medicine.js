@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Medicine.init({
     name: DataTypes.STRING,
-    unit: DataTypes.STRING
+    unit: DataTypes.STRING,
+    dosage: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Medicine',

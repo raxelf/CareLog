@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   PrescriptionDetails.init({
     quantity: DataTypes.INTEGER,
-    dosage: DataTypes.STRING,
+    instruction: DataTypes.STRING,
     PrescriptionId: DataTypes.INTEGER,
     MedicineId: DataTypes.INTEGER
   }, {

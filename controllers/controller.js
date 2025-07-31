@@ -6,7 +6,9 @@ const {
     Queue,
     History,
     MedicalRecord,
-    Prescription
+    Prescription,
+    PrescriptionDetails,
+    Medicine
 } = require('../models/index.js');
 
 const bcrypt = require('bcryptjs');
@@ -166,6 +168,9 @@ class Controller {
                         limit: 1,
                         order: [['scheduledAt', 'ASC']],
                         where: {
+                            status: {
+                                [Op.eq]: "Menunggu"
+                            },
                             scheduledAt: {
                                 [Op.gte]: new Date()
                             }
@@ -294,11 +299,14 @@ class Controller {
             });
 
             let queue = await Queue.findAll({
+                where: {
+                    status: "Menunggu"
+                },
                 include: [
                     {
                         model: User,
                         where: {
-                            id: req.session.userId
+                            id: req.session.userId,
                         },
                         as: 'Doctor'
                     }
@@ -321,6 +329,9 @@ class Controller {
                 where: {
                     DoctorId: {
                         [Op.eq]: req.session.userId
+                    },
+                    status: {
+                        [Op.eq]: "Menunggu"
                     }
                 },
                 include: [
@@ -344,7 +355,73 @@ class Controller {
         try {
             let { id } = req.params;
 
-            res.render('doctors/diagnose', { currentURL: req.originalUrl, queueId:id })
+            let queue = await Queue.findByPk(+id, {
+                include: [
+                    {
+                        model: User,
+                        include: [{ model: Profile }],
+                        as: 'Patient'
+                    }
+                ]
+            });
+
+            let medicines = await Medicine.findAll();
+
+            res.render('doctors/diagnose', { currentURL: req.originalUrl, queueId:id, queue, medicines })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
+    static async saveDoctorQueueDiagnose (req, res) {
+        try {
+            let { id } = req.params;
+            let { anamnesis, diagnosis, medicines, doctorNotes } = req.body;
+
+            let emr = await MedicalRecord.create({
+                anamnesis, diagnosis, doctorNotes, DoctorId: req.session.userId
+            });
+
+            let prescription = await Prescription.create({
+                MedicalRecordId: emr.id
+            });
+
+            for (let medicine of medicines) {
+                let { id:medId, instruction, quantity } = medicine;
+
+                await PrescriptionDetails.create({
+                    quantity,
+                    instruction,
+                    PrescriptionId: prescription.id,
+                    MedicineId: medId
+                });
+            }
+
+            await Queue.update({status: "Selesai"},
+                {
+                    where: {
+                        id: +id
+                    }
+                }
+            );
+
+            await History.update(
+                {
+                    MedicalRecordId: emr.id,
+                    PrescriptionId: prescription.id
+                },
+                {
+                    where: {
+                        QueueId: {
+                            [Op.eq]: +id
+                        }
+                    }
+                }
+            )
+
+            res.redirect('/doctor/queue');
         } catch (err) {
             console.log(err);
 
@@ -381,7 +458,7 @@ class Controller {
                         ]
                     }
                 ]
-            })
+            });
 
             res.render("doctors/history", { currentURL: req.originalUrl, queues })
         } catch (err) {

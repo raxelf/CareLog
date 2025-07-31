@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/assets/css/output.css">
 </head>
 <body>
-    <div class="flex bg-[#F8FAFC] h-screen gap-2 w-full">
+    <div class="flex bg-[#F8FAFC] h-full gap-2 w-full">
         <%- include('../partials/sidebarDoctor.ejs') %>
 
         <div class="h-full text-[#64748B] w-full">
@@ -24,11 +24,160 @@
 
                 <div class="flex flex-col w-full bg-white rounded-md p-8 gap-10">
                     <form action="/doctor/queue/<%= queueId %>/diagnose" method="post" class="flex flex-col gap-8">
+                        <div class="flex flex-col gap-2">
+                            <label for="">Nama Pasien</label>
+                            <input type="text" class="bg-[#F8FAFC] rounded-md py-3 px-5" disabled value="<%= queue.Patient.Profile.name %>">
+                        </div>
 
+                        <div class="flex flex-col gap-2">
+                            <label for="anamnesis">Anamnesis</label>
+                            <input type="text" name="anamnesis" id="anamnesis" class="bg-[#F8FAFC] rounded-md py-3 px-5" placeholder="Masukkan Anamnesis">
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label for="diagnosis">Diagnosis</label>
+                            <input type="text" name="diagnosis" id="diagnosis" class="bg-[#F8FAFC] rounded-md py-3 px-5" placeholder="Masukkan diagnosis">
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label for="prescription">Resep Obat</label>
+                             <div class="relative">
+                                <div class="flex gap-4 items-center">
+                                    <input type="text" id="medicineInput" class="bg-[#F8FAFC] rounded-md py-3 px-5 w-full" placeholder="Ketik nama obat..." autocomplete="off"/>
+                                    <button type="button" id="addMedicineBtn" class="bg-[#2B96CA] text-white px-5 py-3 rounded-md mt-2 w-fit cursor-pointer">
+                                        Tambah
+                                    </button>
+                                </div>
+                                <ul id="autocompleteList" class="absolute z-10 border rounded-md bg-white shadow mt-1 w-full hidden max-h-40 overflow-y-auto"></ul>
+                            </div>
+
+                            <div id="medicineList" class="flex flex-col gap-2 mt-3"></div>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label for="doctorNotes">Catatan</label>
+                            <input type="text" name="doctorNotes" id="doctorNotes" class="bg-[#F8FAFC] rounded-md py-3 px-5" placeholder="Masukkan catatan">
+                        </div>
+
+                        <button type="submit" class="py-3 text-white bg-[#2B96CA] rounded-lg cursor-pointer">
+                            Simpan Diagnosa
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    
+    <script>
+        const medicineData = <%- JSON.stringify(medicines) %>;
+
+        const input = document.getElementById('medicineInput');
+        const list = document.getElementById('medicineList');
+        const autocomplete = document.getElementById('autocompleteList');
+        const addBtn = document.getElementById('addMedicineBtn');
+
+        let selectedMedicines = [];
+
+        input.addEventListener('input', () => {
+            const value = input.value.trim().toLowerCase();
+                autocomplete.innerHTML = '';
+                if (!value) {
+                autocomplete.classList.add('hidden');
+                return;
+            }
+
+            const matches = medicineData.filter(
+                med => med.name.toLowerCase().includes(value) &&
+                        !selectedMedicines.some(m => m.id === med.id)
+            );
+
+            if (matches.length === 0) {
+                autocomplete.classList.add('hidden');
+                return;
+            }
+
+            matches.forEach(med => {
+                const li = document.createElement('li');
+                li.textContent = med.name;
+                li.className = 'px-4 py-2 cursor-pointer hover:bg-blue-100';
+                li.addEventListener('click', () => {
+                    addMedicine(med);
+                });
+                autocomplete.appendChild(li);
+            });
+
+            autocomplete.classList.remove('hidden');
+        });
+
+        input.addEventListener('blur', () => {
+            setTimeout(() => autocomplete.classList.add('hidden'), 200);
+        });
+
+        addBtn.addEventListener('click', () => {
+            const value = input.value.trim();
+            if (value && medicineData.includes(value) && !selectedMedicines.includes(value)) {
+                addMedicine(value);
+            }
+        });
+
+        function addMedicine(med) {
+            selectedMedicines.push(med);
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'flex flex-col gap-2 bg-gray-100 p-3 rounded-md';
+
+            const topRow = document.createElement('div');
+            topRow.className = 'flex justify-between items-center';
+
+            const span = document.createElement('span');
+            span.textContent = med.name;
+            span.className = 'font-semibold';
+
+            const removeBtn = document.createElement('button');
+            removeBtn.textContent = 'Hapus';
+            removeBtn.className = 'text-red-500 cursor-pointer';
+            removeBtn.type = 'button';
+            removeBtn.addEventListener('click', () => {
+                wrapper.remove();
+                selectedMedicines = selectedMedicines.filter(m => m.id !== med.id);
+            });
+
+            topRow.appendChild(span);
+            topRow.appendChild(removeBtn);
+
+            // Input Quantity
+            const quantityInput = document.createElement('input');
+            quantityInput.type = 'number';
+            quantityInput.name = `medicines[${med.id}][quantity]`;
+            quantityInput.placeholder = 'Jumlah';
+            quantityInput.min = '1';
+            quantityInput.required = true;
+            quantityInput.className = 'py-2 px-3 rounded-md border';
+
+            // Input Instruction
+            const instructionInput = document.createElement('input');
+            instructionInput.type = 'text';
+            instructionInput.name = `medicines[${med.id}][instruction]`;
+            instructionInput.placeholder = 'Instruksi penggunaan (cth: 3x sehari)';
+            instructionInput.required = true;
+            instructionInput.className = 'py-2 px-3 rounded-md border';
+
+            // Hidden Input ID Obat
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = `medicines[${med.id}][id]`;
+            hiddenInput.value = med.id;
+
+            wrapper.appendChild(topRow);
+            wrapper.appendChild(quantityInput);
+            wrapper.appendChild(instructionInput);
+            wrapper.appendChild(hiddenInput);
+            list.appendChild(wrapper);
+
+            input.value = '';
+            autocomplete.classList.add('hidden');
+        }
+    </script>
+
 </body>
 </html>

@@ -55,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
                 model: sequelize.models.Prescription
             }
           ],
-          order: [[sequelize.models.Queue, 'scheduledAt', 'ASC']]
+          order: [[sequelize.models.Queue, 'scheduledAt', 'ASC'], [sequelize.models.Queue, 'createdAt', 'DESC']]
         };
 
         if (filter) options.include[0].where.status = {
