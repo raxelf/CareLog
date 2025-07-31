@@ -29,6 +29,36 @@ class Controller {
         }
     }
 
+    static async getPatientDashboard (req, res) {
+        try {
+            res.render("patients/dashboard", { currentURL: req.originalUrl })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
+    static async getPatientQueue (req, res) {
+        try {
+            res.render("patients/queue", { currentURL: req.originalUrl })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
+    static async getPatientHistory (req, res) {
+        try {
+            res.render("patients/history", { currentURL: req.originalUrl })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
     static async X (req, res) {
         try {
             res.send("x");
