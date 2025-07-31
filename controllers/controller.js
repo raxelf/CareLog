@@ -265,8 +265,19 @@ class Controller {
             let { filter } = req.query;
 
             let histories = await History.getByPatientWithFilter(req.session.userId, filter);
+            let historyCount = await History.findAll({
+                include: [
+                    {
+                        model: Queue,
+                        where: {
+                            PatientId: req.session.userId
+                        }
+                    }
+                ]
+            })
+            historyCount = historyCount.length;
 
-            res.render("patients/history", { currentURL: req.originalUrl, filter, histories })
+            res.render("patients/history", { currentURL: req.originalUrl, filter, histories, historyCount })
         } catch (err) {
             console.log(err);
 
