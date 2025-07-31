@@ -15,8 +15,85 @@
     <div class="flex bg-[#F8FAFC] h-screen gap-2 w-full">
         <%- include('../partials/sidebarPatient.ejs') %>
 
-        <div>
-            
+        <div class="h-full text-[#64748B] w-full">
+            <div class="p-20 flex flex-col gap-6">
+                <div class="flex-col gap-10 flex">
+                    <h1 class="text-xl font-bold text-[#0B2C46]">Riwayat</h1>
+
+                    <div class="flex flex-col gap-4">
+                        <p>Filter :</p>
+
+                        <div class="flex gap-6 items-center ">
+                            <a href="/patient/history" class="bg-[#2B96CA] text-white px-5 py-1 rounded-xl border border-[#2B96CA]">
+                                Semua
+                            </a>
+                            <a href="/patient/history?filter=diizinkan" class="border border-[#2B96CA] rounded-xl px-5 py-1">
+                                Diizinkan
+                            </a>
+                            <a href="/patient/history?filter=belumdiizinkan" class="border border-[#2B96CA] rounded-xl px-5 py-1">
+                                Belum Diizinkan
+                            </a>
+                            <a href="/patient/history?filter=ditolak" class="border border-[#2B96CA] rounded-xl px-5 py-1">
+                                Ditolak
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col w-full bg-white rounded-md p-8 gap-10">
+                    <div class="flex flex-col gap-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-6 text-[#0B2C46]">
+                                <span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2B96CA26]">
+                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 11H4V19H20V11ZM11 13V17H6V13H11ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z"></path></svg>
+                                </span>
+                                <span>28 Juli 2025</span>
+                            </div>
+                            <div class="bg-[#64748B]/15 text-[#64748B] px-5 py-2 rounded-lg">
+                                Belum Diizinkan
+                            </div>
+                        </div>
+                        <hr class="text-[#64748B]/25">
+                    </div>
+
+                    <div class="flex flex-col gap-8 px-1">
+                        <div class="flex gap-8">
+                            <span class="w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H4ZM13 16.083V20H17.6586C16.9423 17.9735 15.1684 16.4467 13 16.083ZM11 20V16.083C8.83165 16.4467 7.05766 17.9735 6.34141 20H11ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.2104 11 16 9.21043 16 7C16 4.78957 14.2104 3 12 3C9.78957 3 8 4.78957 8 7C8 9.21043 9.78957 11 12 11Z"></path></svg>
+                            </span>
+                            <p>dr. Siti - Umum</p>
+                        </div>
+                        <div class="flex gap-8">
+                            <span class="w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 11H4V19H20V11ZM11 13V17H6V13H11ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z"></path></svg>
+                            </span>
+                            <p>Diagnosis: Infeksi Saluran Pernafasan</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex gap-8">
+                                <span class="w-6 h-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M19.7786 4.22184C22.1217 6.56498 22.1217 10.364 19.7786 12.7071L12.7075 19.7782C10.3643 22.1213 6.56535 22.1213 4.2222 19.7782C1.87906 17.435 1.87906 13.6361 4.2222 11.2929L11.2933 4.22184C13.6364 1.87869 17.4354 1.87869 19.7786 4.22184ZM14.1224 15.5348L8.46555 9.87798L5.63642 12.7071C4.07432 14.2692 4.07432 16.8019 5.63642 18.364C7.19851 19.9261 9.73117 19.9261 11.2933 18.364L14.1224 15.5348ZM18.3643 5.63605C16.8022 4.07395 14.2696 4.07395 12.7075 5.63605L9.87976 8.46377L15.5366 14.1206L18.3643 11.2929C19.9264 9.73081 19.9264 7.19815 18.3643 5.63605Z"></path></svg>
+                                </span>
+                                <p>Resep: Tersedia</p>
+                            </div>
+                            <a href="" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
+                                Lihat Resep
+                            </a>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex gap-8">
+                                <span class="w-6 h-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M12.4142 5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5ZM4 7V19H20V7H4Z"></path></svg>
+                                </span>
+                                <p>Rekam Medis: Tidak Tersedia</p>
+                            </div>
+                            <a href="" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
+                                Ajukan Akses
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
