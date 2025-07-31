@@ -16,13 +16,15 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       Prescription.hasMany(models.PrescriptionDetails, {
-        foreignKey: "PrescriptionId"
+        foreignKey: "PrescriptionId",
+        as: "prescriptionDetails"
       });
 
       Prescription.belongsToMany(models.Medicine, {
         through: models.PrescriptionDetails,
         foreignKey: "PrescriptionId",
-        otherKey: "MedicineId"
+        otherKey: "MedicineId",
+        as: "medicines"
       });
 
       Prescription.hasMany(models.History, {

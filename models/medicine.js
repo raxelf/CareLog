@@ -12,13 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Medicine.hasMany(models.PrescriptionDetails, {
-        foreignKey: "MedicineId"
+        foreignKey: "MedicineId",
+        as: "prescriptionDetails"
       });
 
       Medicine.belongsToMany(models.Prescription, {
         through: models.PrescriptionDetails,
         foreignKey: "MedicineId",
-        otherKey: "PrescriptionId"
+        otherKey: "PrescriptionId",
+        as: "prescriptions"
       });
     }
   }
