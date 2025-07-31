@@ -27,5 +27,6 @@ router.post('/doctor/queue/:id/diagnose', isLoggedIn, isDoctor, Controller.saveD
 router.get('/doctor/history', isLoggedIn, isDoctor, Controller.getDoctorHistory);
 router.get('/doctor/emr', isLoggedIn, isDoctor, Controller.getDoctorEmrRequest);
 
+router.get('/emr/:id/downloadpdf', isLoggedIn, Controller.donwloadEmrPdf)
 
 module.exports = router;

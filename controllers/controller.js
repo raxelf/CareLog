@@ -1,5 +1,7 @@
-const { Op, where } = require('sequelize');
-const { getGreetingStatus, getFormattedDate, getFormmatedDateForInputDate } = require('../helpers/helper.js');
+const { Op } = require('sequelize');
+const { jsPDF } = require('jspdf');
+const { autoTable } = require('jspdf-autotable');
+const { getGreetingStatus, getFormattedDate, getFormmatedDateForInputDate, printEmrPdf } = require('../helpers/helper.js');
 const {
     User,
     Profile,
@@ -474,6 +476,65 @@ class Controller {
             let { filter } = req.query;
             
             res.render("doctors/emrRequest", { currentURL: req.originalUrl, filter })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
+    static async donwloadEmrPdf (req, res) {
+        try {
+            const { id } = req.params;
+
+            const medicalRecord = await MedicalRecord.findByPk(id, {
+                include: [{
+                    model: History,
+                    include: [
+                        {
+                            model: Queue,
+                            include: [
+                                {
+                                    model: User,
+                                    as: 'Patient',
+                                    include: [{ model: Profile }]
+                                },
+                                {
+                                    model: User,
+                                    as: 'Doctor',
+                                    include: [{ model: Profile }]
+                                }
+                            ]
+                        },
+                        {
+                            model: Prescription,
+                            include: [
+                                {
+                                    model: PrescriptionDetails,
+                                    as: "prescriptionDetails",
+                                    include: [
+                                        {
+                                            model: Medicine
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }]
+            });
+
+            const history = medicalRecord.Histories[0];
+            const queue = history.Queue;
+            const patientProfile = queue.Patient.Profile;
+            const doctorProfile = queue.Doctor.Profile;
+            const prescriptions = history.Prescription;
+
+            let pdfOutput = printEmrPdf(patientProfile, doctorProfile, prescriptions, medicalRecord)
+
+            res.setHeader("Content-Type", "application/pdf");
+            res.setHeader("Content-Disposition", `attachment; filename=rekam_medis_${patientProfile.name}.pdf`);
+            res.send(Buffer.from(pdfOutput));
         } catch (err) {
             console.log(err);
 
