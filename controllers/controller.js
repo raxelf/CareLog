@@ -80,7 +80,7 @@ class Controller {
             const { email, password } = req.body;
 
             if (!email || !password) throw {
-                name: "PasswordNotValid",
+                name: "LoginValidationError",
                 error: "Email atau password harus diisi."
             }
 
@@ -94,31 +94,50 @@ class Controller {
                 const isValidPassword = bcrypt.compareSync(password, user.password)
 
                 if (isValidPassword) {
+                    req.session.userId = user.id;
+                    req.session.role = user.role;
+
                     if (user.role === 'doctor') {
                         res.redirect('/doctor')
                     } else {
+
                         res.redirect('/patient')
                     }
                 } else {
                     throw {
-                        name: "PasswordNotValid",
+                        name: "LoginValidationError",
                         error: "Email atau password salah."
                     }
                 }
             } else {
                 throw {
-                    name: "PasswordNotValid",
+                    name: "LoginValidationError",
                     error: "Email dan password salah."
                 }
             }
         } catch (err) {
-            if (err.name === "PasswordNotValid") {
+            if (err.name === "LoginValidationError") {
                 res.redirect(`/login?error=${err.error}`)
             } else {
                 console.log(err);
     
                 res.send(err);
             }
+        }
+    }
+
+    static async logout (req, res) {
+        try {
+            req.session.destroy((err) => {
+                if (err) throw err;
+                else {
+                    res.redirect('/login');
+                }
+            })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
         }
     }
 
