@@ -181,6 +181,10 @@ class Controller {
 
     static async getPatientQueue (req, res) {
         try {
+            let { errors } = req.query;
+
+            if (errors) errors = errors.split(',');
+
             let user = await User.findByPk(req.session.userId, {
                 include: [
                     { model: Profile }
@@ -202,7 +206,7 @@ class Controller {
 
             let now = getFormattedDate(new Date());
 
-            res.render("patients/queue", { currentURL: req.originalUrl, user, doctors, now })
+            res.render("patients/queue", { currentURL: req.originalUrl, user, doctors, now, errors })
         } catch (err) {
             console.log(err);
 
@@ -213,15 +217,27 @@ class Controller {
     static async savePatientQueue (req, res) {
         try {
             let { DoctorId, scheduledDate, scheduledTime, reason } = req.body;
-            let scheduledAt = new Date(scheduledDate + "T" + scheduledTime);
+            
+            let scheduledAt;
+            if (scheduledDate && scheduledTime ) scheduledAt = new Date(scheduledDate + "T" + scheduledTime);
 
-            await Queue.create({ DoctorId, scheduledDate, scheduledTime, reason, PatientId:req.session.userId });
+            await Queue.create({ DoctorId, scheduledAt, reason, PatientId:req.session.userId });
 
             res.redirect('/patient/history');
         } catch (err) {
-            console.log(err);
+            if (err.name === "SequelizeValidationError") {
+                let errors = err.errors;
 
-            res.send(err);
+                errors = errors.map(error => {
+                    return error.message;
+                })
+
+                res.redirect(`/patient/queue?errors=${errors.join(',')}`);
+            } else {
+                console.log(err);
+    
+                res.send(err);
+            }
         }
     }
 

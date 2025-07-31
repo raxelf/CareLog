@@ -61,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     scheduledAt: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull: false,
       validate: {
         notNull: {

@@ -15,7 +15,7 @@ router.get('/logout', Controller.logout);
 // Patient
 router.get('/patient', isLoggedIn, isPatient, Controller.getPatientDashboard);
 router.get('/patient/queue', isLoggedIn, isPatient, Controller.getPatientQueue);
-router.post('/patient/queue', isLoggedIn, isPatient, Controller.X);
+router.post('/patient/queue', isLoggedIn, isPatient, Controller.savePatientQueue);
 router.get('/patient/history', isLoggedIn, isPatient, Controller.getPatientHistory);
 router.get('/patient/history/:historyId/prescription', isLoggedIn, isPatient, Controller.X);
 
