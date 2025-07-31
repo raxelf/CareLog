@@ -1,44 +1,7 @@
 const express = require('express');
 const Controller = require('../controllers/controller');
+const { notLoggedIn, isLoggedIn, isPatient, isDoctor } = require('../middlewares/auth');
 const router = express.Router();
-
-const isLoggedIn = function(req, res, next) {
-    if(!req.session.userId && !req.session.role) {
-        const error = "Akses ditolak. Silakan login terlebih dahulu";
-
-        res.redirect(`/login?error=${error}`)
-    } else {
-        next();
-    }
-}
-
-const isPatient = function(req, res, next) {
-    if (req.session.role === 'patient') {
-        next();
-    } else {
-        res.redirect('/doctor')
-    }
-}
-
-const isDoctor = function(req, res, next) {
-    if (req.session.role === 'doctor') {
-        next();
-    } else {
-        res.redirect('/patient')
-    }
-}
-
-const notLoggedIn = function (req, res, next) {
-    if(!req.session.userId && !req.session.role) {
-        next();
-    } else {
-        if (req.session.role === 'patient') {
-            res.redirect('/patient');
-        } else if (req.session.role === 'doctor') {
-            res.redirect('/doctor');
-        }
-    }
-}
 
 router.get('/', notLoggedIn, Controller.getHome);
 
