@@ -30,6 +30,14 @@ module.exports = (sequelize, DataTypes) => {
     get formattedScheduledAt () {
       return getFormattedDateTime(this.scheduledAt);
     }
+
+    get formattedScheduledAtDate () {
+      return this.formattedScheduledAt.split('-')[0];
+    }
+
+    get formattedScheduledAtTime () {
+      return this.formattedScheduledAt.split('-')[1];
+    }
   }
   Queue.init({
     status: {

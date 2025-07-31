@@ -317,7 +317,22 @@ class Controller {
         try {
             let { filter } = req.query;
 
-            res.render("doctors/queue", { currentURL: req.originalUrl, filter })
+            let queues = await Queue.findAll({
+                where: {
+                    DoctorId: {
+                        [Op.eq]: req.session.userId
+                    }
+                },
+                include: [
+                    {
+                        model: User,
+                        include: [{ model: Profile }],
+                        as: 'Patient'
+                    }
+                ]
+            })
+
+            res.render("doctors/queue", { currentURL: req.originalUrl, filter, queues })
         } catch (err) {
             console.log(err);
 
