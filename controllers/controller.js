@@ -51,7 +51,9 @@ class Controller {
 
     static async getPatientHistory (req, res) {
         try {
-            res.render("patients/history", { currentURL: req.originalUrl })
+            let { filter } = req.query;
+
+            res.render("patients/history", { currentURL: req.originalUrl, filter })
         } catch (err) {
             console.log(err);
 

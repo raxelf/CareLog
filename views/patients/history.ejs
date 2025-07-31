@@ -24,16 +24,16 @@
                         <p>Filter :</p>
 
                         <div class="flex gap-6 items-center ">
-                            <a href="/patient/history" class="bg-[#2B96CA] text-white px-5 py-1 rounded-xl border border-[#2B96CA]">
+                            <a href="/patient/history" class="px-5 py-1 rounded-xl border border-[#2B96CA] <%= !filter ? 'bg-[#2B96CA] text-white' : '' %>">
                                 Semua
                             </a>
-                            <a href="/patient/history?filter=diizinkan" class="border border-[#2B96CA] rounded-xl px-5 py-1">
+                            <a href="/patient/history?filter=diizinkan" class="border border-[#2B96CA] rounded-xl px-5 py-1 <%= filter === "diizinkan" ? 'bg-[#2B96CA] text-white' : '' %>">
                                 Diizinkan
                             </a>
-                            <a href="/patient/history?filter=belumdiizinkan" class="border border-[#2B96CA] rounded-xl px-5 py-1">
+                            <a href="/patient/history?filter=belumdiizinkan" class="border border-[#2B96CA] rounded-xl px-5 py-1 <%= filter === "belumdiizinkan" ? 'bg-[#2B96CA] text-white' : '' %>">
                                 Belum Diizinkan
                             </a>
-                            <a href="/patient/history?filter=ditolak" class="border border-[#2B96CA] rounded-xl px-5 py-1">
+                            <a href="/patient/history?filter=ditolak" class="border border-[#2B96CA] rounded-xl px-5 py-1 <%= filter === "ditolak" ? 'bg-[#2B96CA] text-white' : '' %>">
                                 Ditolak
                             </a>
                         </div>
