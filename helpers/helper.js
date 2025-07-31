@@ -12,6 +12,17 @@ const getGreetingStatus = () => {
     }
 }
 
+const getFormattedDateTime = (date) => {
+    return new Date(date).toLocaleString('id-ID', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    })
+}
+
 module.exports = {
-    getGreetingStatus
+    getGreetingStatus,
+    getFormattedDateTime
 }

@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { getFormattedDateTime } = require('../helpers/helper');
 module.exports = (sequelize, DataTypes) => {
   class Queue extends Model {
     /**
@@ -24,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
       Queue.hasMany(models.History, {
         foreignKey: "QueueId"
       })
+    }
+
+    get formattedScheduledAt () {
+      return getFormattedDateTime(this.scheduledAt);
     }
   }
   Queue.init({

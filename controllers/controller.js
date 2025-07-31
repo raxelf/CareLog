@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { getGreetingStatus } = require('../helpers/helper.js');
 const {
     User,
@@ -150,7 +151,21 @@ class Controller {
                     { model: Profile },
                     {
                         model: Queue,
-                        as: 'PatientQueues'
+                        as: 'PatientQueues',
+                        separate: true,
+                        limit: 1,
+                        where: {
+                            scheduledAt: {
+                                [Op.gte]: new Date()
+                            }
+                        },
+                        include: [
+                            {
+                                model: User,
+                                as: 'Doctor',
+                                include: [{ model: Profile }]
+                            }
+                        ]
                     }
                 ],
             });
