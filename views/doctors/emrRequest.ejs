@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permintaan EMR | CareLog</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="stylesheet" href="/assets/css/output.css">
+</head>
+<body>
+    <div class="flex bg-[#F8FAFC] h-screen gap-2 w-full">
+        <%- include('../partials/sidebarDoctor.ejs') %>
+
+        <div class="h-screen text-[#64748B] w-full">
+            <div class="p-20 flex flex-col gap-12">
+                <div>
+                    <h1 class="text-xl font-bold text-[#0B2C46]">Permintaan EMR</h1>
+                    <p>Selamat pagi, dr. Siti 👋</p>
+                </div>
+
+                <div class="flex flex-col w-[60%] bg-white rounded-md p-8 gap-10">
+                    <div class="flex flex-col gap-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-6">
+                                <span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2B96CA26]/50">
+                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M8 3V5H6V9C6 11.2091 7.79086 13 10 13C12.2091 13 14 11.2091 14 9V5H12V3H15C15.5523 3 16 3.44772 16 4V9C16 11.9727 13.8381 14.4405 11.0008 14.9169L11 16.5C11 18.433 12.567 20 14.5 20C15.9973 20 17.275 19.0598 17.7749 17.7375C16.7283 17.27 16 16.2201 16 15C16 13.3431 17.3431 12 19 12C20.6569 12 22 13.3431 22 15C22 16.3711 21.0802 17.5274 19.824 17.8854C19.2102 20.252 17.0592 22 14.5 22C11.4624 22 9 19.5376 9 16.5L9.00019 14.9171C6.16238 14.4411 4 11.9731 4 9V4C4 3.44772 4.44772 3 5 3H8ZM19 14C18.4477 14 18 14.4477 18 15C18 15.5523 18.4477 16 19 16C19.5523 16 20 15.5523 20 15C20 14.4477 19.5523 14 19 14Z"></path></svg>
+                                </span>
+                                <span>25 pasien menunggu antrean.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
