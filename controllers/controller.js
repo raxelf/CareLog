@@ -3,7 +3,10 @@ const { getGreetingStatus, getFormattedDate, getFormmatedDateForInputDate } = re
 const {
     User,
     Profile,
-    Queue
+    Queue,
+    History,
+    MedicalRecord,
+    Prescription
 } = require('../models/index.js');
 
 const bcrypt = require('bcryptjs');
@@ -206,7 +209,14 @@ class Controller {
                         }
                     },
                     include: [
-                        { model: Profile }
+                        {
+                            model: Profile,
+                            where: {
+                                status: {
+                                    [Op.eq]: 'active'
+                                }
+                            }
+                        }
                     ]
                 }
             )
@@ -229,7 +239,8 @@ class Controller {
             let scheduledAt;
             if (scheduledDate && scheduledTime ) scheduledAt = new Date(scheduledDate + "T" + scheduledTime);
 
-            await Queue.create({ DoctorId, scheduledAt, reason, PatientId:req.session.userId });
+            let queue = await Queue.create({ DoctorId, scheduledAt, reason, PatientId:req.session.userId });
+            await History.create({ QueueId: queue.id });
 
             res.redirect('/patient/history');
         } catch (err) {
@@ -253,7 +264,35 @@ class Controller {
         try {
             let { filter } = req.query;
 
-            res.render("patients/history", { currentURL: req.originalUrl, filter })
+            let histories = await History.findAll(
+                {
+                    include: [
+                        {
+                            model: Queue,
+                            include: [
+                                {
+                                    model: User,
+                                    where: {
+                                        role: {
+                                            [Op.eq]: 'doctor'
+                                        }
+                                    },
+                                    as: 'Doctor',
+                                    include: [{ model: Profile }],
+                                }
+                            ]
+                        },
+                        {
+                            model: MedicalRecord
+                        },
+                        {
+                            model: Prescription
+                        }
+                    ]
+                }
+            );
+
+            res.render("patients/history", { currentURL: req.originalUrl, filter, histories })
         } catch (err) {
             console.log(err);
 

@@ -13,13 +13,21 @@ const getGreetingStatus = () => {
 }
 
 const getFormattedDateTime = (date) => {
-    return new Date(date).toLocaleString('id-ID', {
+    const d = new Date(date);
+    
+    const tanggal = d.toLocaleDateString('id-ID', {
         day: '2-digit',
         month: 'long',
-        year: 'numeric',
+        year: 'numeric'
+    });
+
+    const jam = d.toLocaleTimeString('id-ID', {
         hour: '2-digit',
-        minute: '2-digit'
-    })
+        minute: '2-digit',
+        hour12: false
+    });
+
+    return `${tanggal} - ${jam}`;
 }
 
 const getFormattedDate = (date) => {
