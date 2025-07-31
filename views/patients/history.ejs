@@ -16,7 +16,7 @@
         <%- include('../partials/sidebarPatient.ejs') %>
 
         <div class="h-full text-[#64748B] w-full">
-            <div class="p-20 flex flex-col gap-6">
+            <div class="p-20 flex flex-col gap-12">
                 <div class="flex-col gap-10 flex">
                     <h1 class="text-xl font-bold text-[#0B2C46]">Riwayat</h1>
 
@@ -65,29 +65,43 @@
                                 <span class="w-6 h-6">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M8 3V5H6V9C6 11.2091 7.79086 13 10 13C12.2091 13 14 11.2091 14 9V5H12V3H15C15.5523 3 16 3.44772 16 4V9C16 11.9727 13.8381 14.4405 11.0008 14.9169L11 16.5C11 18.433 12.567 20 14.5 20C15.9973 20 17.275 19.0598 17.7749 17.7375C16.7283 17.27 16 16.2201 16 15C16 13.3431 17.3431 12 19 12C20.6569 12 22 13.3431 22 15C22 16.3711 21.0802 17.5274 19.824 17.8854C19.2102 20.252 17.0592 22 14.5 22C11.4624 22 9 19.5376 9 16.5L9.00019 14.9171C6.16238 14.4411 4 11.9731 4 9V4C4 3.44772 4.44772 3 5 3H8ZM19 14C18.4477 14 18 14.4477 18 15C18 15.5523 18.4477 16 19 16C19.5523 16 20 15.5523 20 15C20 14.4477 19.5523 14 19 14Z"></path></svg>
                                 </span>
-                                <p>Diagnosis: </p>
+                                <p>Diagnosis: <%= !history.MedicalRecord ? 'Belum Tersedia' : history.MedicalRecord.diagnosis %></p>
                             </div>
                             <div class="flex justify-between items-center">
                                 <div class="flex gap-8">
                                     <span class="w-6 h-6">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M19.7786 4.22184C22.1217 6.56498 22.1217 10.364 19.7786 12.7071L12.7075 19.7782C10.3643 22.1213 6.56535 22.1213 4.2222 19.7782C1.87906 17.435 1.87906 13.6361 4.2222 11.2929L11.2933 4.22184C13.6364 1.87869 17.4354 1.87869 19.7786 4.22184ZM14.1224 15.5348L8.46555 9.87798L5.63642 12.7071C4.07432 14.2692 4.07432 16.8019 5.63642 18.364C7.19851 19.9261 9.73117 19.9261 11.2933 18.364L14.1224 15.5348ZM18.3643 5.63605C16.8022 4.07395 14.2696 4.07395 12.7075 5.63605L9.87976 8.46377L15.5366 14.1206L18.3643 11.2929C19.9264 9.73081 19.9264 7.19815 18.3643 5.63605Z"></path></svg>
                                     </span>
-                                    <p>Resep: Tersedia</p>
+                                    <p>Resep: <%= !history.Prescription ? 'Belum Tersedia' : 'Tersedia' %></p>
                                 </div>
-                                <a href="" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
-                                    Lihat Resep
-                                </a>
+                                <% if (history.Prescription) { %>
+                                    <a href="" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
+                                        Lihat Resep
+                                    </a>
+                                <% } %>
                             </div>
                             <div class="flex justify-between items-center">
                                 <div class="flex gap-8">
                                     <span class="w-6 h-6">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M12.4142 5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5ZM4 7V19H20V7H4Z"></path></svg>
                                     </span>
-                                    <p>Rekam Medis: Tidak Tersedia</p>
+                                    <p>
+                                        <% if (history.MedicalRecord && history.MedicalRecord.status === 'diizinkan') { %>
+                                            Rekam Medis : Tersedia
+                                        <% } else { %>
+                                            Rekam Medis : Belum Tersedia
+                                        <% } %>
+                                    </p>
                                 </div>
-                                <a href="" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
-                                    Ajukan Akses
-                                </a>
+                                <% if (history.MedicalRecord && history.MedicalRecord.status === 'diizinkan') { %>
+                                    <a href="" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
+                                        Unduh PDF
+                                    </a>
+                                <% } else if (history.MedicalRecord && (history.MedicalRecord.status === 'belumdiizinkan')) {%>
+                                    <a href="" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
+                                        Ajukan Akses
+                                    </a>
+                                <% } %>
                             </div>
                         </div>
                     </div>

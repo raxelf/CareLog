@@ -264,33 +264,7 @@ class Controller {
         try {
             let { filter } = req.query;
 
-            let histories = await History.findAll(
-                {
-                    include: [
-                        {
-                            model: Queue,
-                            include: [
-                                {
-                                    model: User,
-                                    where: {
-                                        role: {
-                                            [Op.eq]: 'doctor'
-                                        }
-                                    },
-                                    as: 'Doctor',
-                                    include: [{ model: Profile }],
-                                }
-                            ]
-                        },
-                        {
-                            model: MedicalRecord
-                        },
-                        {
-                            model: Prescription
-                        }
-                    ]
-                }
-            );
+            let histories = await History.getByPatientWithFilter(req.session.userId, filter);
 
             res.render("patients/history", { currentURL: req.originalUrl, filter, histories })
         } catch (err) {
