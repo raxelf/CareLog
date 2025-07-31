@@ -1,6 +1,8 @@
+const { getGreetingStatus } = require('../helpers/helper.js');
 const {
     User,
-    Profile
+    Profile,
+    Queue
 } = require('../models/index.js');
 
 const bcrypt = require('bcryptjs');
@@ -143,7 +145,18 @@ class Controller {
 
     static async getPatientDashboard (req, res) {
         try {
-            res.render("patients/dashboard", { currentURL: req.originalUrl })
+            let user = await User.findByPk(req.session.userId, {
+                include: [
+                    { model: Profile },
+                    {
+                        model: Queue,
+                        as: 'PatientQueues'
+                    }
+                ],
+            });
+
+
+            res.render("patients/dashboard", { currentURL: req.originalUrl, user, getGreetingStatus })
         } catch (err) {
             console.log(err);
 

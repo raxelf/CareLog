@@ -18,12 +18,12 @@ module.exports = (sequelize, DataTypes) => {
 
       User.hasMany(models.Queue, {
         foreignKey: "PatientId",
-        as: 'Patient'
+        as: 'PatientQueues'
       });
 
       User.hasMany(models.Queue, {
         foreignKey: "DoctorId",
-        as: 'Doctor'
+        as: 'DoctorQueues'
       });
     }
   }

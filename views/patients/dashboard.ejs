@@ -19,48 +19,80 @@
             <div class="p-20 flex flex-col gap-12">
                 <div>
                     <h1 class="text-xl font-bold text-[#0B2C46]">Beranda</h1>
-                    <p>Selamat pagi, Budi 👋</p>
+                    <p><%= getGreetingStatus() %>, <%= user.Profile.name %> 👋</p>
                 </div>
 
-                <div class="flex flex-col w-[60%] bg-white rounded-md p-8 gap-10">
-                    <div class="flex flex-col gap-4">
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-6 text-[#0B2C46]">
-                                <span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2B96CA26]/50">
-                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                        <path fill="none" d="M0 0h24v24H0z" />
-                                        <path d="M7 4V2H17V4H20.0066C20.5552 4 21 4.44495 21 4.9934V21.0066C21 21.5552 20.5551 22 20.0066 22H3.9934C3.44476 22 3 21.5551 3 21.0066V4.9934C3 4.44476 3.44495 4 3.9934 4H7ZM7 6H5V20H19V6H17V8H7V6ZM9 4V6H15V4H9Z" />
-                                    </svg>
+                <% if (user.PatientQueues.length > 0) { %>
+                    <div class="flex flex-col w-[60%] bg-white rounded-md p-8 gap-10">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center gap-6 text-[#0B2C46]">
+                                    <span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2B96CA26]/50">
+                                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path fill="none" d="M0 0h24v24H0z" />
+                                            <path d="M7 4V2H17V4H20.0066C20.5552 4 21 4.44495 21 4.9934V21.0066C21 21.5552 20.5551 22 20.0066 22H3.9934C3.44476 22 3 21.5551 3 21.0066V4.9934C3 4.44476 3.44495 4 3.9934 4H7ZM7 6H5V20H19V6H17V8H7V6ZM9 4V6H15V4H9Z" />
+                                        </svg>
+                                    </span>
+                                    <span>Antrian anda saat ini</span>
+                                </div>
+                                <div class="bg-[#F2FF0047] text-[#9FA700] px-8 py-2 rounded-xl">
+                                    Menunggu
+                                </div>
+                            </div>
+                            <hr class="text-[#64748B]/25">
+                        </div>
+
+                        <div class="flex flex-col gap-8 px-1">
+                            <div class="flex gap-8">
+                                <span class="w-6 h-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H4ZM13 16.083V20H17.6586C16.9423 17.9735 15.1684 16.4467 13 16.083ZM11 20V16.083C8.83165 16.4467 7.05766 17.9735 6.34141 20H11ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.2104 11 16 9.21043 16 7C16 4.78957 14.2104 3 12 3C9.78957 3 8 4.78957 8 7C8 9.21043 9.78957 11 12 11Z"></path></svg>
                                 </span>
-                                <span>Antrian anda saat ini</span>
+                                <p>dr. Siti - Umum</p>
                             </div>
-                            <div class="bg-[#F2FF0047] text-[#9FA700] px-8 py-2 rounded-xl">
-                                Menunggu
+                            <div class="flex gap-8">
+                                <span class="w-6 h-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 11H4V19H20V11ZM11 13V17H6V13H11ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z"></path></svg>
+                                </span>
+                                <p>29 Juli 2025 - 13:00</p>
                             </div>
+                            <a href="/patient/history" class="bg-[#2B96CA] py-2 text-white text-center rounded-md">
+                                <span>
+                                    Lihat Detail
+                                </span>
+                            </a>
                         </div>
-                        <hr class="text-[#64748B]/25">
                     </div>
+                <% } else { %>
+                    <div class="flex flex-col w-[60%] bg-white rounded-md p-8 gap-4">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center gap-6 text-[#0B2C46]">
+                                    <span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2B96CA26]/50">
+                                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path fill="none" d="M0 0h24v24H0z" />
+                                            <path d="M7 4V2H17V4H20.0066C20.5552 4 21 4.44495 21 4.9934V21.0066C21 21.5552 20.5551 22 20.0066 22H3.9934C3.44476 22 3 21.5551 3 21.0066V4.9934C3 4.44476 3.44495 4 3.9934 4H7ZM7 6H5V20H19V6H17V8H7V6ZM9 4V6H15V4H9Z" />
+                                        </svg>
+                                    </span>
+                                    <span>Antrian anda saat ini</span>
+                                </div>
+                            </div>
+                            <hr class="text-[#64748B]/25">
+                        </div>
 
-                    <div class="flex flex-col gap-8 px-1">
-                        <div class="flex gap-8">
-                            <span class="w-6 h-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H4ZM13 16.083V20H17.6586C16.9423 17.9735 15.1684 16.4467 13 16.083ZM11 20V16.083C8.83165 16.4467 7.05766 17.9735 6.34141 20H11ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.2104 11 16 9.21043 16 7C16 4.78957 14.2104 3 12 3C9.78957 3 8 4.78957 8 7C8 9.21043 9.78957 11 12 11Z"></path></svg>
+                        <div class="flex flex-col gap-8 px-1">
+                            <span class="mb-6">
+                                Anda belum mengambil antrian.
                             </span>
-                            <p>dr. Siti - Umum</p>
+                            <a href="/patient/queue" class="bg-[#2B96CA] py-2 text-white text-center rounded-md">
+                                <span>
+                                    Ambil Antrian Sekarang
+                                </span>
+                            </a>
                         </div>
-                        <div class="flex gap-8">
-                            <span class="w-6 h-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 11H4V19H20V11ZM11 13V17H6V13H11ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z"></path></svg>
-                            </span>
-                            <p>29 Juli 2025 - 13:00</p>
-                        </div>
-                        <a href="/patient/history" class="bg-[#2B96CA] py-2 text-white text-center rounded-md">
-                            <span>
-                                Lihat Detail
-                            </span>
-                        </a>
                     </div>
-                </div>
+                <% } %>
+                     
+                
             </div>
         </div>
     </div>
