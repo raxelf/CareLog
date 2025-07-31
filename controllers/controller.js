@@ -1,3 +1,10 @@
+const {
+    User,
+    Profile
+} = require('../models/index.js');
+
+const bcrypt = require('bcryptjs');
+
 class Controller {
     static async getHome (req, res) {
         try {
@@ -11,7 +18,9 @@ class Controller {
 
     static async getLogin (req, res) {
         try {
-            res.render("login");
+            let { error } = req.query;
+
+            res.render("login", { error });
         } catch (err) {
             console.log(err);
 
@@ -21,11 +30,95 @@ class Controller {
 
     static async getRegister (req, res) {
         try {
-            res.render("register");
+            let { errors } = req.query;
+
+            if (errors) errors = errors.split(',')
+
+            res.render("register", { errors });
         } catch (err) {
             console.log(err);
 
             res.send(err);
+        }
+    }
+
+    static async registerPatient (req, res) {
+        try {
+            const { name, gender, birthOfDate, address, phoneNumber, email, password } = req.body;
+
+            const user = await User.create({ email, password });
+
+            await Profile.create({
+                name,
+                gender,
+                birthOfDate,
+                address,
+                phoneNumber,
+                UserId: user.id
+            });
+
+            res.redirect('/login');
+        } catch (err) {
+            if (err.name === "SequelizeValidationError") {
+                let errors = err.errors;
+
+                errors = errors.map(error => {
+                    return error.message;
+                })
+
+                res.redirect(`/register?errors=${errors.join(',')}`);
+            } else {
+                console.log(err);
+    
+                res.send(err);
+            }
+        }
+    }
+
+    static async login (req, res) {
+        try {
+            const { email, password } = req.body;
+
+            if (!email || !password) throw {
+                name: "PasswordNotValid",
+                error: "Email atau password harus diisi."
+            }
+
+            let user = await User.findOne({
+                where: {
+                    email: email
+                }
+            })
+
+            if (user) {
+                const isValidPassword = bcrypt.compareSync(password, user.password)
+
+                if (isValidPassword) {
+                    if (user.role === 'doctor') {
+                        res.redirect('/doctor')
+                    } else {
+                        res.redirect('/patient')
+                    }
+                } else {
+                    throw {
+                        name: "PasswordNotValid",
+                        error: "Email atau password salah."
+                    }
+                }
+            } else {
+                throw {
+                    name: "PasswordNotValid",
+                    error: "Email dan password salah."
+                }
+            }
+        } catch (err) {
+            if (err.name === "PasswordNotValid") {
+                res.redirect(`/login?error=${err.error}`)
+            } else {
+                console.log(err);
+    
+                res.send(err);
+            }
         }
     }
 

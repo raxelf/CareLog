@@ -17,11 +17,76 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Profile.init({
-    name: DataTypes.STRING,
-    gender: DataTypes.STRING,
-    birthOfDate: DataTypes.DATE,
-    address: DataTypes.STRING,
-    phoneNumber: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Nama tidak boleh kosong."
+        },
+        notEmpty: {
+          args: true,
+          msg: "Nama tidak boleh kosong."
+        }
+      }
+    },
+    gender: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Jenis Kelamin tidak boleh kosong."
+        },
+        notEmpty: {
+          args: true,
+          msg: "Jenis Kelamin tidak boleh kosong."
+        }
+      }
+    },
+    birthOfDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Tanggal Lahir tidak boleh kosong."
+        },
+        notEmpty: {
+          args: true,
+          msg: "Tanggal Lahir tidak boleh kosong."
+        }
+      }
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Alamat tidak boleh kosong."
+        },
+        notEmpty: {
+          args: true,
+          msg: "Alamat tidak boleh kosong."
+        }
+      }
+    },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "No. Handphone tidak boleh kosong."
+        },
+        notEmpty: {
+          args: true,
+          msg: "No. Handphone tidak boleh kosong."
+        }
+      }
+    },
     specialization: DataTypes.STRING,
     status: DataTypes.STRING,
     UserId: DataTypes.INTEGER
