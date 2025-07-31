@@ -71,6 +71,14 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           args: true,
           msg: "Jadwal konsultasi tidak boleh kosong."
+        },
+        isNotPast(value) {
+          const now = new Date();
+          const selectedDate = new Date(value);
+
+          if (selectedDate < now) {
+            throw new Error("Jadwal konsultasi tidak boleh di waktu yang sudah lewat.");
+          }
         }
       }
     },

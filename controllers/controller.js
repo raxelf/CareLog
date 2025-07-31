@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { getGreetingStatus, getFormattedDate } = require('../helpers/helper.js');
+const { getGreetingStatus, getFormattedDate, getFormmatedDateForInputDate } = require('../helpers/helper.js');
 const {
     User,
     Profile,
@@ -49,6 +49,11 @@ class Controller {
         try {
             const { name, gender, birthOfDate, address, phoneNumber, email, password } = req.body;
 
+            if (new Date(birthOfDate) > new Date()) throw {
+                name: "birthOfDateExceedToday",
+                errors: "Tanggal lahir tidak boleh melebihi hari ini."
+            }
+                
             const user = await User.create({ email, password });
 
             await Profile.create({
@@ -70,6 +75,8 @@ class Controller {
                 })
 
                 res.redirect(`/register?errors=${errors.join(',')}`);
+            } else if (err.name === "birthOfDateExceedToday") {
+                res.redirect(`/register?errors=${err.errors}`);
             } else {
                 console.log(err);
     
@@ -154,6 +161,7 @@ class Controller {
                         as: 'PatientQueues',
                         separate: true,
                         limit: 1,
+                        order: [['scheduledAt', 'ASC']],
                         where: {
                             scheduledAt: {
                                 [Op.gte]: new Date()
@@ -169,7 +177,6 @@ class Controller {
                     }
                 ],
             });
-
 
             res.render("patients/dashboard", { currentURL: req.originalUrl, user, getGreetingStatus })
         } catch (err) {
@@ -205,8 +212,9 @@ class Controller {
             )
 
             let now = getFormattedDate(new Date());
+            let inputNow = getFormmatedDateForInputDate(new Date());
 
-            res.render("patients/queue", { currentURL: req.originalUrl, user, doctors, now, errors })
+            res.render("patients/queue", { currentURL: req.originalUrl, user, doctors, now, errors, inputNow })
         } catch (err) {
             console.log(err);
 
@@ -217,7 +225,7 @@ class Controller {
     static async savePatientQueue (req, res) {
         try {
             let { DoctorId, scheduledDate, scheduledTime, reason } = req.body;
-            
+
             let scheduledAt;
             if (scheduledDate && scheduledTime ) scheduledAt = new Date(scheduledDate + "T" + scheduledTime);
 

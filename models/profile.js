@@ -56,8 +56,13 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           args: true,
           msg: "Tanggal Lahir tidak boleh kosong."
-        }
-      }
+        },
+        isBeforeToday(value) {
+          if (new Date(value) > new Date()) {
+            throw new Error("Tanggal Lahir tidak boleh melewati hari ini.");
+          }
+        },
+      },
     },
     address: {
       type: DataTypes.STRING,
