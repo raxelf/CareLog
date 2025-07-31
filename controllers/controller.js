@@ -457,7 +457,8 @@ class Controller {
                             }
                         ]
                     }
-                ]
+                ],
+                order: [['updatedAt', 'DESC']]
             });
 
             res.render("doctors/history", { currentURL: req.originalUrl, queues })
