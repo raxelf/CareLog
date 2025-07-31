@@ -79,9 +79,10 @@
                 <div class="w-full flex flex-col gap-2">
                     <label for="confirmPassword">Konfirmasi Password</label>
                     <input type="password" name="confirmPassword" id="confirmPassword" class="bg-[#F8FAFC] px-5 py-3 rounded-md" placeholder="************">
+                    <p id="errorMessage" class="text-red-500 text-sm hidden">Password tidak sama.</p>
                 </div>
                 
-                <button type="submit" class="py-4 cursor-pointer text-white bg-[#2B96CA] rounded-lg">
+                <button type="submit" id="submitBtn" class="py-4 cursor-pointer text-white bg-[#2B96CA] rounded-lg">
                     Daftar
                 </button>
                 <div class="text-center font-medium">Sudah punya akun? <a href="/login" class="text-[#2B96CA] hover:underline">Masuk</a></div>
@@ -90,5 +91,21 @@
     </div>
 
     <%- include('./partials/footer.ejs') %>
+
+    <script>
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput = document.getElementById("confirmPassword");
+        const errorMessage = document.getElementById("errorMessage");
+        const submitBtn = document.getElementById("submitBtn");
+
+        submitBtn.addEventListener("click", function (e) {
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                e.preventDefault();
+                errorMessage.classList.remove("hidden");
+            } else {
+                errorMessage.classList.add("hidden");
+            }
+        });
+    </script>
 </body>
 </html>

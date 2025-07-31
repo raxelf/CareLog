@@ -10,7 +10,7 @@ router.get('/login', notLoggedIn, Controller.getLogin);
 router.post('/login', notLoggedIn, Controller.login);
 router.get('/register', notLoggedIn, Controller.getRegister);
 router.post('/register', notLoggedIn, Controller.registerPatient);
-router.get('/logout', isLoggedIn, Controller.logout);
+router.get('/logout', Controller.logout);
 
 // Patient
 router.get('/patient', isLoggedIn, isPatient, Controller.getPatientDashboard);

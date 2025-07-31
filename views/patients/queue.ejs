@@ -19,7 +19,7 @@
             <div class="p-20 flex flex-col gap-12">
                 <div>
                     <h1 class="text-xl font-bold text-[#0B2C46]">Ambil Antrian</h1>
-                    <p>Budi - 29 Juli 2025</p>
+                    <p><%= user.Profile.name %> - <%= now %></p>
                 </div>
 
                 <div class="flex flex-col w-full bg-white rounded-md p-8 gap-10">
@@ -28,20 +28,25 @@
                             <label for="DoctorId">Pilih Dokter</label>
                             <select name="DoctorId" id="DoctorId" class="bg-[#F8FAFC] rounded-md py-3 px-5">
                                 <option value="" selected disabled>-- Pilih Dokter --</option>
+                                <% doctors.forEach(doctor => { %>
+                                    <option value="<%= doctor.id %>">dr. <%= doctor.Profile.name %> - <%= doctor.Profile.specialization %></option>
+                                <% }) %>
                             </select>
                         </div>
 
                         <div class="flex flex-col gap-2">
                             <label for="scheduledAt">Pilih Jadwal Konsultasi</label>
-                            <input type="date" name="scheduledAt" id="scheduledAt" class="bg-[#F8FAFC] rounded-md py-3 px-5">
+                            <input type="date" name="scheduledDate" id="scheduledDate" class="bg-[#F8FAFC] rounded-md py-3 px-5">
+                            
+                            <input type="hidden" name="scheduledTime" id="scheduledTime">
                             <div class="flex w-full justify-between mt-2">
-                                <div class="border border-[#64748B40] px-5 py-3 text-center rounded-xl w-[25%] cursor-pointer">
+                                <div class="time-btn border border-[#64748B40] px-5 py-3 text-center rounded-xl w-[25%] cursor-pointer">
                                     09:00
                                 </div>
-                                <div class="border border-[#64748B40] px-5 py-3 text-center rounded-xl w-[25%] cursor-pointer">
+                                <div class="time-btn border border-[#64748B40] px-5 py-3 text-center rounded-xl w-[25%] cursor-pointer">
                                     13:00
                                 </div>
-                                <div class="border border-[#64748B40] px-5 py-3 text-center rounded-xl w-[25%] cursor-pointer">
+                                <div class="time-btn border border-[#64748B40] px-5 py-3 text-center rounded-xl w-[25%] cursor-pointer">
                                     16:00
                                 </div>
                             </div>
@@ -60,5 +65,24 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const timeButtons = document.querySelectorAll(".time-btn");
+        const scheduledTimeInput = document.getElementById("scheduledTime");
+
+        timeButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                timeButtons.forEach(b => {
+                    b.classList.remove("text-[#2B96CA]", "border-[#2B96CA]");
+                    b.classList.add("border-[#64748B40]");
+                });
+
+                btn.classList.remove("border-[#64748B40]");
+                btn.classList.add("text-[#2B96CA]", "border-[#2B96CA]");
+
+                scheduledTimeInput.value = btn.textContent.trim();
+            });
+        });
+    </script>
 </body>
 </html>

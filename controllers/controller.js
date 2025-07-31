@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { getGreetingStatus } = require('../helpers/helper.js');
+const { getGreetingStatus, getFormattedDate } = require('../helpers/helper.js');
 const {
     User,
     Profile,
@@ -62,7 +62,7 @@ class Controller {
 
             res.redirect('/login');
         } catch (err) {
-            if (err.name === "SequelizeValidationError") {
+            if (err.name === "SequelizeValidationError" || err.name === "SequelizeUniqueConstraintError") {
                 let errors = err.errors;
 
                 errors = errors.map(error => {
@@ -181,7 +181,43 @@ class Controller {
 
     static async getPatientQueue (req, res) {
         try {
-            res.render("patients/queue", { currentURL: req.originalUrl })
+            let user = await User.findByPk(req.session.userId, {
+                include: [
+                    { model: Profile }
+                ]
+            });
+
+            let doctors = await User.findAll(
+                {
+                    where: {
+                        role: {
+                            [Op.eq]: 'doctor'
+                        }
+                    },
+                    include: [
+                        { model: Profile }
+                    ]
+                }
+            )
+
+            let now = getFormattedDate(new Date());
+
+            res.render("patients/queue", { currentURL: req.originalUrl, user, doctors, now })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
+    static async savePatientQueue (req, res) {
+        try {
+            let { DoctorId, scheduledDate, scheduledTime, reason } = req.body;
+            let scheduledAt = new Date(scheduledDate + "T" + scheduledTime);
+
+            await Queue.create({ DoctorId, scheduledDate, scheduledTime, reason, PatientId:req.session.userId });
+
+            res.redirect('/patient/history');
         } catch (err) {
             console.log(err);
 
