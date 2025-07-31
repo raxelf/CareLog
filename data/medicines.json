@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Paracetamol",
+    "unit": "mg"
+  },
+  {
+    "name": "Amoxicillin",
+    "unit": "mg"
+  },
+  {
+    "name": "Ibuprofen",
+    "unit": "mg"
+  },
+  {
+    "name": "Cetirizine",
+    "unit": "mg"
+  },
+  {
+    "name": "Salbutamol",
+    "unit": "mcg"
+  },
+  {
+    "name": "Ranitidine",
+    "unit": "mg"
+  },
+  {
+    "name": "Metformin",
+    "unit": "mg"
+  },
+  {
+    "name": "Omeprazole",
+    "unit": "mg"
+  },
+  {
+    "name": "Chlorpheniramine",
+    "unit": "mg"
+  },
+  {
+    "name": "Dextromethorphan",
+    "unit": "mg"
+  }
+]

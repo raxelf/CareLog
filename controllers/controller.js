@@ -340,9 +340,50 @@ class Controller {
         }
     }
 
+    static async getDoctorQueueDiagnose (req, res) {
+        try {
+            let { id } = req.params;
+
+            res.render('doctors/diagnose', { currentURL: req.originalUrl, queueId:id })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
     static async getDoctorHistory (req, res) {
         try {
-            res.render("doctors/history", { currentURL: req.originalUrl })
+            let queues = await Queue.findAll({
+                where: {
+                    DoctorId: {
+                        [Op.eq]: req.session.userId
+                    },
+                    status: {
+                        [Op.eq]: 'Selesai'
+                    }
+                },
+                include: [
+                    {
+                        model: User,
+                        include: [{ model: Profile }],
+                        as: 'Patient'
+                    },
+                    {
+                        model: History,
+                        include: [
+                            {
+                                model: Prescription
+                            },
+                            {
+                                model: MedicalRecord
+                            }
+                        ]
+                    }
+                ]
+            })
+
+            res.render("doctors/history", { currentURL: req.originalUrl, queues })
         } catch (err) {
             console.log(err);
 

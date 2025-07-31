@@ -22,6 +22,8 @@ router.get('/patient/history/:historyId/prescription', isLoggedIn, isPatient, Co
 // Doctor
 router.get('/doctor', isLoggedIn, isDoctor, Controller.getDoctorDashboard);
 router.get('/doctor/queue', isLoggedIn, isDoctor, Controller.getDoctorQueue);
+router.get('/doctor/queue/:id/diagnose', isLoggedIn, isDoctor, Controller.getDoctorQueueDiagnose);
+router.post('/doctor/queue/:id/diagnose', isLoggedIn, isDoctor, Controller.X);
 router.get('/doctor/history', isLoggedIn, isDoctor, Controller.getDoctorHistory);
 router.get('/doctor/emr', isLoggedIn, isDoctor, Controller.getDoctorEmrRequest);
 
