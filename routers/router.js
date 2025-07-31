@@ -10,6 +10,11 @@ router.post('/login', Controller.X);
 router.get('/register', Controller.getRegister);
 router.post('/register', Controller.X);
 
+// Patient
+router.get('/patient', Controller.getPatientDashboard);
+router.get('/patient/queue', Controller.getPatientQueue);
+router.post('/patient/queue', Controller.X);
+router.get('/patient/history', Controller.getPatientHistory);
 
 
 module.exports = router;

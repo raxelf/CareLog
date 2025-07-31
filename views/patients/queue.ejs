@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambil Antrian | CareLog</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="stylesheet" href="/assets/css/output.css">
+</head>
+<body>
+    <div class="flex bg-[#F8FAFC] h-full gap-2 w-full">
+        <%- include('../partials/sidebarPatient.ejs') %>
+
+        <div class="h-full text-[#64748B] w-full">
+            <div class="p-20 flex flex-col gap-12">
+                <div>
+                    <h1 class="text-xl font-bold text-[#0B2C46]">Ambil Antrian</h1>
+                    <p>Budi - 29 Juli 2025</p>
+                </div>
+
+                <div class="flex flex-col w-full bg-white rounded-md p-8 gap-10">
+                    <form action="/patient/queue" method="post" class="flex flex-col gap-8">
+                        <div class="flex flex-col gap-2">
+                            <label for="DoctorId">Pilih Dokter</label>
+                            <select name="DoctorId" id="DoctorId" class="bg-[#F8FAFC] rounded-md py-3 px-5">
+                                <option value="" selected disabled>-- Pilih Dokter --</option>
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label for="scheduledAt">Pilih Jadwal Konsultasi</label>
+                            <input type="date" name="scheduledAt" id="scheduledAt" class="bg-[#F8FAFC] rounded-md py-3 px-5">
+                            <div class="flex w-full justify-between mt-2">
+                                <div class="border border-[#64748B40] px-5 py-3 text-center rounded-xl w-[25%] cursor-pointer">
+                                    09:00
+                                </div>
+                                <div class="border border-[#64748B40] px-5 py-3 text-center rounded-xl w-[25%] cursor-pointer">
+                                    13:00
+                                </div>
+                                <div class="border border-[#64748B40] px-5 py-3 text-center rounded-xl w-[25%] cursor-pointer">
+                                    16:00
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label for="reason">Alasan Konsultasi</label>
+                            <textarea name="reason" id="reason" rows="3" class="bg-[#F8FAFC] rounded-md py-3 px-5" placeholder="Tuliskan keluhan atau alasan konsultasi...."></textarea>
+                        </div>
+
+                        <button type="submit" class="bg-[#2B96CA] text-white py-3 rounded-md">
+                            Ambil Antrian
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
