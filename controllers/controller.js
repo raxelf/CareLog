@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 const { getGreetingStatus, getFormattedDate, getFormmatedDateForInputDate } = require('../helpers/helper.js');
 const {
     User,
@@ -287,7 +287,25 @@ class Controller {
 
     static async getDoctorDashboard (req, res) {
         try {
-            res.render("doctors/dashboard", { currentURL: req.originalUrl })
+            let user = await User.findByPk(req.session.userId, {
+                include: [
+                    { model: Profile }
+                ]
+            });
+
+            let queue = await Queue.findAll({
+                include: [
+                    {
+                        model: User,
+                        where: {
+                            id: req.session.userId
+                        },
+                        as: 'Doctor'
+                    }
+                ]
+            });
+
+            res.render("doctors/dashboard", { currentURL: req.originalUrl, user, getGreetingStatus, queue })
         } catch (err) {
             console.log(err);
 
