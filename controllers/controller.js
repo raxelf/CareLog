@@ -61,6 +61,16 @@ class Controller {
         }
     }
 
+    static async getDoctorDashboard (req, res) {
+        try {
+            res.render("doctors/dashboard", { currentURL: req.originalUrl })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
     static async X (req, res) {
         try {
             res.send("x");
