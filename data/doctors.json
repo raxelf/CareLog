@@ -1,0 +1,67 @@
+[
+  {
+    "email": "andi.firmansyah@mail.com",
+    "password": "password123",
+    "role": "doctor",
+    "name": "Andi Firmansyah",
+    "gender": "Male",
+    "birthOfDate": "1980-04-12",
+    "address": "Jl. Merdeka No.10, Jakarta",
+    "phoneNumber": "081234567890",
+    "specialization": "Umum",
+    "status": "active",
+    "UserId": 1
+  },
+  {
+    "email": "ratna.putri@mail.com",
+    "password": "password123",
+    "role": "doctor",
+    "name": "Ratna Putri",
+    "gender": "Female",
+    "birthOfDate": "1985-08-23",
+    "address": "Jl. Anggrek No.22, Bandung",
+    "phoneNumber": "082345678901",
+    "specialization": "Umum",
+    "status": "active",
+    "UserId": 2
+  },
+  {
+    "email": "budi.wicaksono@mail.com",
+    "password": "password123",
+    "role": "doctor",
+    "name": "Budi Wicaksono",
+    "gender": "Male",
+    "birthOfDate": "1983-11-02",
+    "address": "Jl. Kenanga No.7, Surabaya",
+    "phoneNumber": "083456789012",
+    "specialization": "Kardiologi",
+    "status": "inactive",
+    "UserId": 3
+  },
+  {
+    "email": "sri.lestari@mail.com",
+    "password": "password123",
+    "role": "doctor",
+    "name": "Sri Lestari",
+    "gender": "Female",
+    "birthOfDate": "1979-05-30",
+    "address": "Jl. Pahlawan No.3, Semarang",
+    "phoneNumber": "081356789012",
+    "specialization": "Umum",
+    "status": "active",
+    "UserId": 4
+  },
+  {
+    "email": "dedi.susanto@mail.com",
+    "password": "password123",
+    "role": "doctor",
+    "name": "Dedi Susanto",
+    "gender": "Male",
+    "birthOfDate": "1982-03-15",
+    "address": "Jl. Cemara No.19, Medan",
+    "phoneNumber": "082167890123",
+    "specialization": "Umum",
+    "status": "active",
+    "UserId": 5
+  }
+]

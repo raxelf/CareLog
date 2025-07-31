@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require('bcryptjs');
 const {
   Model
 } = require('sequelize');
@@ -17,20 +18,61 @@ module.exports = (sequelize, DataTypes) => {
 
       User.hasMany(models.Queue, {
         foreignKey: "PatientId",
-        as: 'Patient'
+        as: 'PatientQueues'
       });
 
       User.hasMany(models.Queue, {
         foreignKey: "DoctorId",
-        as: 'Doctor'
+        as: 'DoctorQueues'
       });
     }
   }
   User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.TEXT,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique:{
+        args: true,
+        msg: "Email sudah terdaftar."
+      },
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Email tidak boleh kosong."
+        },
+        notEmpty: {
+          args: true,
+          msg: "Email tidak boleh kosong."
+        }
+      }
+    },
+    password: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Password tidak boleh kosong."
+        },
+        notEmpty: {
+          args: true,
+          msg: "Password tidak boleh kosong."
+        }
+      }
+    },
     role: DataTypes.STRING
   }, {
+    hooks: {
+      beforeCreate: async (user, options) => {
+        try {
+          let salt = await bcrypt.genSalt(10);
+          user.password = await bcrypt.hash(user.password, salt);
+          user.role = "patient";
+        } catch (err) {
+          throw err;
+        }
+      }
+    },
     sequelize,
     modelName: 'User',
   });

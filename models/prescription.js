@@ -15,8 +15,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "MedicalRecordId"
       });
 
-      Prescription.hasMany(models.PrescriptionDetail, {
-        foreignKey: "PrescriptionId"
+      Prescription.hasMany(models.PrescriptionDetails, {
+        foreignKey: "PrescriptionId",
+        as: "prescriptionDetails"
+      });
+
+      Prescription.belongsToMany(models.Medicine, {
+        through: models.PrescriptionDetails,
+        foreignKey: "PrescriptionId",
+        otherKey: "MedicineId",
+        as: "medicines"
       });
 
       Prescription.hasMany(models.History, {
