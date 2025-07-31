@@ -95,7 +95,9 @@ class Controller {
 
     static async getDoctorEmrRequest (req, res) {
         try {
-            res.render("doctors/emrRequest", { currentURL: req.originalUrl })
+            let { filter } = req.query;
+            
+            res.render("doctors/emrRequest", { currentURL: req.originalUrl, filter })
         } catch (err) {
             console.log(err);
 

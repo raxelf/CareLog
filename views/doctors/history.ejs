@@ -16,21 +16,47 @@
         <%- include('../partials/sidebarDoctor.ejs') %>
 
         <div class="h-screen text-[#64748B] w-full">
-            <div class="p-20 flex flex-col gap-12">
-                <div>
+            <div class="p-20 flex flex-col gap-10">
+                <div class="flex-col gap-10 flex">
                     <h1 class="text-xl font-bold text-[#0B2C46]">Riwayat Pasien</h1>
-                    <p>Selamat pagi, dr. Siti 👋</p>
                 </div>
 
-                <div class="flex flex-col w-[60%] bg-white rounded-md p-8 gap-10">
+                <div class="flex flex-col w-full bg-white rounded-md p-8 gap-10">
                     <div class="flex flex-col gap-4">
                         <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-6">
+                            <div class="flex items-center gap-6 text-[#0B2C46]">
                                 <span class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2B96CA26]/50">
-                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M8 3V5H6V9C6 11.2091 7.79086 13 10 13C12.2091 13 14 11.2091 14 9V5H12V3H15C15.5523 3 16 3.44772 16 4V9C16 11.9727 13.8381 14.4405 11.0008 14.9169L11 16.5C11 18.433 12.567 20 14.5 20C15.9973 20 17.275 19.0598 17.7749 17.7375C16.7283 17.27 16 16.2201 16 15C16 13.3431 17.3431 12 19 12C20.6569 12 22 13.3431 22 15C22 16.3711 21.0802 17.5274 19.824 17.8854C19.2102 20.252 17.0592 22 14.5 22C11.4624 22 9 19.5376 9 16.5L9.00019 14.9171C6.16238 14.4411 4 11.9731 4 9V4C4 3.44772 4.44772 3 5 3H8ZM19 14C18.4477 14 18 14.4477 18 15C18 15.5523 18.4477 16 19 16C19.5523 16 20 15.5523 20 15C20 14.4477 19.5523 14 19 14Z"></path></svg>
+                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                        <path fill="none" d="M0 0h24v24H0z" />
+                                        <path d="M7 4V2H17V4H20.0066C20.5552 4 21 4.44495 21 4.9934V21.0066C21 21.5552 20.5551 22 20.0066 22H3.9934C3.44476 22 3 21.5551 3 21.0066V4.9934C3 4.44476 3.44495 4 3.9934 4H7ZM7 6H5V20H19V6H17V8H7V6ZM9 4V6H15V4H9Z" />
+                                    </svg>
                                 </span>
-                                <span>25 pasien menunggu antrean.</span>
+                                <span>28 Juli 2025</span>
                             </div>
+                            <div class="bg-[#00FF082E]/50 text-[#13B900] px-8 py-2 rounded-xl">
+                                Selesai
+                            </div>
+                        </div>
+                        <hr class="text-[#64748B]/25">
+                    </div>
+
+                    <div class="flex flex-col gap-8 px-1">
+                        <div class="flex gap-8">
+                            <span class="w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M14 14.252V16.3414C13.3744 16.1203 12.7013 16 12 16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14C12.6906 14 13.3608 14.0875 14 14.252ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM19.4184 17H23.0042V19H19.4184L21.2469 20.8284L19.8326 22.2426L15.59 18L19.8326 13.7574L21.2469 15.1716L19.4184 17Z"></path></svg>
+                            </span>
+                            <p>Pasien Budi</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex gap-8">
+                                <span class="w-6 h-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"></path><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM13 12H17V14H11V7H13V12Z"></path></svg>
+                                </span>
+                                <p>13:00</p>
+                            </div>
+                            <a href="" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
+                                Lihat Detail
+                            </a>
                         </div>
                     </div>
                 </div>

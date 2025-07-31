@@ -454,8 +454,17 @@
   .border-\[\#64748B40\]\/85 {
     border-color: color-mix(in oklab, #64748B40 85%, transparent);
   }
+  .bg-\[\#\#00FF082E\] {
+    background-color: ##00FF082E;
+  }
   .bg-\[\#\#64748B\] {
     background-color: ##64748B;
+  }
+  .bg-\[\#00FF082E\] {
+    background-color: #00FF082E;
+  }
+  .bg-\[\#00FF082E\]\/50 {
+    background-color: color-mix(in oklab, #00FF082E 50%, transparent);
   }
   .bg-\[\#2B96CA26\] {
     background-color: #2B96CA26;
@@ -637,11 +646,17 @@
   .text-\[\#0B2C46\] {
     color: #0B2C46;
   }
+  .text-\[\#00FF082E\] {
+    color: #00FF082E;
+  }
   .text-\[\#2B96CA\] {
     color: #2B96CA;
   }
   .text-\[\#9FA700\] {
     color: #9FA700;
+  }
+  .text-\[\#13B900\] {
+    color: #13B900;
   }
   .text-\[\#64748B\] {
     color: #64748B;
