@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Paracetamol",
+    "unit": "mg",
+    "dosage": 500
+  },
+  {
+    "name": "Amoxicillin",
+    "unit": "mg",
+    "dosage": 500
+  },
+  {
+    "name": "Ibuprofen",
+    "unit": "mg",
+    "dosage": 200
+  },
+  {
+    "name": "Cetirizine",
+    "unit": "mg",
+    "dosage": 10
+  },
+  {
+    "name": "Salbutamol",
+    "unit": "mcg",
+    "dosage": 100
+  },
+  {
+    "name": "Ranitidine",
+    "unit": "mg",
+    "dosage": 150
+  },
+  {
+    "name": "Metformin",
+    "unit": "mg",
+    "dosage": 500
+  },
+  {
+    "name": "Omeprazole",
+    "unit": "mg",
+    "dosage": 20
+  },
+  {
+    "name": "Chlorpheniramine",
+    "unit": "mg",
+    "dosage": 4
+  },
+  {
+    "name": "Dextromethorphan",
+    "unit": "mg",
+    "dosage": 15
+  }
+]

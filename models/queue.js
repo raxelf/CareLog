@@ -108,7 +108,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks: {
       beforeValidate: (queue, options) => {
-        queue.status = "Menunggu"
+        if (!queue.status) queue.status = "Menunggu"
       }
     },
     sequelize,

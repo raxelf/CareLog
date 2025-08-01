@@ -15,6 +15,9 @@ module.exports = {
       unit: {
         type: Sequelize.STRING
       },
+      dosage: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

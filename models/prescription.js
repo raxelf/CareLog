@@ -36,6 +36,18 @@ module.exports = (sequelize, DataTypes) => {
     prescriptionCode: DataTypes.STRING,
     MedicalRecordId: DataTypes.INTEGER
   }, {
+    hooks: {
+      beforeCreate: (prescription, options) => {
+        if (!prescription.prescriptionCode) {
+          const now = new Date();
+          const yyyymmdd = now.toISOString().slice(0, 10).replace(/-/g, '');
+          const time = now.toTimeString().slice(0, 8).replace(/:/g, '');
+          const random = Math.floor(1000 + Math.random() * 9000);
+
+          prescription.prescriptionCode = `RX-${yyyymmdd}${time}-${random}`;
+        }
+      }
+    },
     sequelize,
     modelName: 'Prescription',
   });
