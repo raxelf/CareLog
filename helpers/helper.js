@@ -194,10 +194,111 @@ const printEmrPdf = (patientProfile, doctorProfile, prescriptions, medicalRecord
     return pdfOutput;
 }
 
+const printPrescriptionPdf = (patientProfile, doctorProfile, prescriptions, medicalRecord) => {
+    applyPlugin(jsPDF);
+    const doc = new jsPDF();
+
+    // Header
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.setTextColor(11, 44, 70);
+    doc.text("CareLog", 15, 15);
+
+    doc.setFontSize(14);
+    doc.text("Resep Obat", 195, 15, { align: "right" });
+
+    doc.setDrawColor(200, 200, 200);
+    doc.setLineWidth(0.3);
+    doc.line(15, 20, 195, 20);
+
+    // Nama Pasien
+    doc.setFontSize(22);
+    doc.setTextColor(11, 44, 70);
+    doc.text(patientProfile.name || "-", 15, 35);
+
+    // Dokter & Tanggal Resep
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(100, 116, 139);
+    doc.text("Dokter", 15, 43);
+
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(11, 44, 70);
+    doc.text(`dr. ${doctorProfile.name || "-" } - ${doctorProfile.specialization || "-"}`, 15, 48);
+
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(100, 116, 139);
+    doc.text("Tanggal Resep", 15, 55);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(11, 44, 70);
+    doc.text(`${prescriptions.formmatedDate || "-"}`, 15, 60);
+
+    // No Resep
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(100, 116, 139);
+    doc.text("No. Resep Obat", 15, 67);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(11, 44, 70);
+    doc.text(`${prescriptions.prescriptionCode || "-"}`, 15, 72);
+
+    // Judul Tabel
+    let y = 85;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.setTextColor(11, 44, 70);
+    doc.text("Daftar Obat", 15, y);
+
+    // Data Resep
+    const prescriptionDetails = prescriptions?.prescriptionDetails || [];
+    if (prescriptionDetails.length > 0) {
+        doc.autoTable({
+            startY: y + 5,
+            head: [["No.", "Nama Obat", "Dosis", "Jumlah", "Satuan", "Instruksi"]],
+            body: prescriptionDetails.map((p, i) => [
+                `${i + 1}.`,
+                p.Medicine?.name || "-",
+                p.Medicine?.dosage || "-",
+                p.quantity || "-",
+                p.Medicine?.unit || "-",
+                p.instruction || "-"
+            ]),
+            styles: {
+                fontSize: 10,
+                cellPadding: 2,
+                valign: 'middle',
+                halign: 'center',
+            },
+            headStyles: {
+                fillColor: [52, 73, 94],
+                textColor: [255, 255, 255],
+            },
+            columnStyles: {
+                1: { halign: 'center' },
+                5: { halign: 'center' }
+            }
+        });
+    }
+
+    // Catatan
+    const finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 15 : y + 40;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.setTextColor(11, 44, 70);
+    doc.text("Catatan", 15, finalY);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+    doc.setTextColor(100, 116, 139);
+    doc.text("Harap mengikuti instruksi pemakaian sesuai petunjuk dokter.", 15, finalY + 7);
+
+    return doc.output("arraybuffer");
+};
+
 module.exports = {
     getGreetingStatus,
     getFormattedDateTime,
     getFormattedDate,
     getFormmatedDateForInputDate,
-    printEmrPdf
+    printEmrPdf,
+    printPrescriptionPdf
 }

@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { getFormattedDate } = require('../helpers/helper');
 module.exports = (sequelize, DataTypes) => {
   class Prescription extends Model {
     /**
@@ -30,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       Prescription.hasMany(models.History, {
         foreignKey: "PrescriptionId"
       });
+    }
+
+    get formmatedDate() {
+      return getFormattedDate(this.updatedAt).split('-')[0];
     }
   }
   Prescription.init({
