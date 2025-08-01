@@ -109,10 +109,6 @@
             autocomplete.classList.remove('hidden');
         });
 
-        input.addEventListener('blur', () => {
-            setTimeout(() => autocomplete.classList.add('hidden'), 200);
-        });
-
         addBtn.addEventListener('click', () => {
             const value = input.value.trim();
             if (value && medicineData.includes(value) && !selectedMedicines.includes(value)) {

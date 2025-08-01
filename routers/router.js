@@ -30,5 +30,6 @@ router.get('/doctor/emr', isLoggedIn, isDoctor, Controller.getDoctorEmrRequest);
 router.get('/doctor/emr/:id/accept', isLoggedIn, isDoctor, Controller.getEmrAccept);
 
 router.get('/emr/:id/downloadpdf', isLoggedIn, Controller.donwloadEmrPdf)
+router.get('/emr/:id/downloadPrescription', isLoggedIn, Controller.donwloadPrescriptionPdf)
 
 module.exports = router;

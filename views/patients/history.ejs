@@ -84,7 +84,7 @@
                                         <p>Resep: <%= !history.Prescription ? 'Belum Tersedia' : 'Tersedia' %></p>
                                     </div>
                                     <% if (history.Prescription) { %>
-                                        <a href="" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
+                                        <a href="/emr/<%= history.MedicalRecord.id %>/downloadPrescription" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
                                             Lihat Resep
                                         </a>
                                     <% } %>

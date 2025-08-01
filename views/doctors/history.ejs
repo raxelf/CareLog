@@ -63,13 +63,13 @@
                                         <p>Resep: <%= !queue.Histories[0].Prescription ? 'Belum Tersedia' : 'Tersedia' %></p>
                                     </div>
                                     <% if (queue.Histories[0].Prescription) { %>
-                                        <a href="" class="border border-[#2B96CA] text-[#2B96CA] rounded-xl px-5 w-50 text-center py-2">
+                                        <a href="/emr/<%= queue.Histories[0].MedicalRecord.id %>/downloadPrescription" class="border border-[#2B96CA] text-[#2B96CA] rounded-xl px-5 w-50 text-center py-2">
                                             Lihat Resep
                                         </a>
                                     <% } %>
                                 </div>
                                 <a href="/emr/<%= queue.Histories[0].MedicalRecord.id %>/downloadpdf" class="bg-[#2B96CA] text-white rounded-xl px-5 w-full text-center py-2">
-                                    Unduh PDF
+                                    Unduh EMR
                                 </a>
                             </div>
                         </div>
