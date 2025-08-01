@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 const { jsPDF } = require('jspdf');
 const { autoTable } = require('jspdf-autotable');
 const { getGreetingStatus, getFormattedDate, getFormmatedDateForInputDate, printEmrPdf } = require('../helpers/helper.js');
@@ -269,7 +269,7 @@ class Controller {
 
     static async getPatientHistory (req, res) {
         try {
-            let { filter } = req.query;
+            let { filter, s } = req.query;
 
             let histories = await History.getByPatientWithFilter(req.session.userId, filter);
             let historyCount = await History.findAll({
@@ -284,7 +284,29 @@ class Controller {
             })
             historyCount = historyCount.length;
 
-            res.render("patients/history", { currentURL: req.originalUrl, filter, histories, historyCount })
+            res.render("patients/history", { currentURL: req.originalUrl, filter, histories, historyCount, s })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
+    static async getPatientEmrRequest (req, res) {
+        try {
+            let { id } = req.params;
+
+            let emr = await MedicalRecord.findByPk(+id);
+
+            await MedicalRecord.update({status: "belumdiizinkan"},
+                {
+                    where: {
+                        id: +id
+                    }
+                }
+            )
+
+            res.redirect(`/patient/history?s=${emr.formattedDate}`);
         } catch (err) {
             console.log(err);
 
@@ -474,8 +496,58 @@ class Controller {
     static async getDoctorEmrRequest (req, res) {
         try {
             let { filter } = req.query;
+
+            const emr = await MedicalRecord.findAll({
+                where: {
+                    status: {
+                        [Op.eq]: 'belumdiizinkan'
+                    }
+                },
+                include: [
+                    {
+                        model: History,
+                        include: [
+                            {
+                                model: Queue,
+                                include: [
+                                    {
+                                        model: User,
+                                        as: 'Patient',
+                                        include: [
+                                            {
+                                                model: Profile
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                order: [['updatedAt', 'ASC']]
+            });
             
-            res.render("doctors/emrRequest", { currentURL: req.originalUrl, filter })
+            res.render("doctors/emrRequest", { currentURL: req.originalUrl, filter, emr })
+        } catch (err) {
+            console.log(err);
+
+            res.send(err);
+        }
+    }
+
+    static async getEmrAccept (req, res) {
+        try {
+            let { id } = req.params;
+
+            await MedicalRecord.update({status: "diizinkan"},
+                {
+                    where: {
+                        id: +id
+                    }
+                }
+            )
+
+            res.redirect("/doctor/emr");
         } catch (err) {
             console.log(err);
 

@@ -20,6 +20,12 @@
                 <div class="flex-col gap-10 flex">
                     <h1 class="text-xl font-bold text-[#0B2C46]">Riwayat</h1>
 
+                    <% if (s) { %>
+                        <div class="bg-green-200 text-green-700 py-4 px-5 rounded-xl">
+                            Rekam Medis Tanggal <%= s %> berhasil diajukan ke dokter.
+                        </div>
+                    <% } %>
+
                     <% if (historyCount > 0) { %>
                         <div class="flex flex-col gap-4">
                             <p>Filter :</p>
@@ -100,8 +106,12 @@
                                         <a href="" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
                                             Unduh PDF
                                         </a>
-                                    <% } else if (history.MedicalRecord && (history.MedicalRecord.status === 'belumdiizinkan')) {%>
-                                        <a href="" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
+                                    <% } else if (history.MedicalRecord.status === 'belumdiizinkan') {%>
+                                        <div class="bg-[#F2FF0047] text-[#9FA700] rounded-xl px-5 w-50 text-center py-2">
+                                            Menunggu
+                                        </div>
+                                    <% } else if (!history.MedicalRecord.status) {%>
+                                        <a href="/patient/history/emrRequest/<%= history.MedicalRecord.id %>" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
                                             Ajukan Akses
                                         </a>
                                     <% } %>

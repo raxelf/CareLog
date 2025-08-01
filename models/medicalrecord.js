@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { getFormattedDateTime } = require('../helpers/helper');
 module.exports = (sequelize, DataTypes) => {
   class MedicalRecord extends Model {
     /**
@@ -23,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       MedicalRecord.hasMany(models.History, {
         foreignKey: "MedicalRecordId"
       });
+    }
+
+    get formattedDate() {
+      return getFormattedDateTime(this.updatedAt)
     }
   }
   MedicalRecord.init({
