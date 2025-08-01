@@ -102,18 +102,20 @@
                                             <% } %>
                                         </p>
                                     </div>
-                                    <% if (history.MedicalRecord && history.MedicalRecord.status === 'diizinkan') { %>
-                                        <a href="" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
-                                            Unduh PDF
-                                        </a>
-                                    <% } else if (history.MedicalRecord.status === 'belumdiizinkan') {%>
-                                        <div class="bg-[#F2FF0047] text-[#9FA700] rounded-xl px-5 w-50 text-center py-2">
-                                            Menunggu
-                                        </div>
-                                    <% } else if (!history.MedicalRecord.status) {%>
-                                        <a href="/patient/history/emrRequest/<%= history.MedicalRecord.id %>" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
-                                            Ajukan Akses
-                                        </a>
+                                    <% if (history.MedicalRecord) { %>
+                                        <% if (history.MedicalRecord.status === 'diizinkan') { %>
+                                            <a href="/emr/<%= history.MedicalRecord.id %>/downloadpdf" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
+                                                Unduh PDF
+                                            </a>
+                                        <% } else if (history.MedicalRecord.status === 'belumdiizinkan') { %>
+                                            <div class="bg-[#F2FF0047] text-[#9FA700] rounded-xl px-5 w-50 text-center py-2">
+                                                Menunggu
+                                            </div>
+                                        <% } else { %>
+                                            <a href="/patient/history/emrRequest/<%= history.MedicalRecord.id %>" class="bg-[#2B96CA] text-white rounded-xl px-5 w-50 text-center py-2">
+                                                Ajukan Akses
+                                            </a>
+                                        <% } %>
                                     <% } %>
                                 </div>
                             </div>

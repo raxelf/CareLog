@@ -296,7 +296,13 @@ class Controller {
         try {
             let { id } = req.params;
 
-            let emr = await MedicalRecord.findByPk(+id);
+            let emr = await MedicalRecord.findByPk(+id, {
+                include: [
+                    {
+                        model: History
+                    }
+                ]
+            });
 
             await MedicalRecord.update({status: "belumdiizinkan"},
                 {
@@ -306,7 +312,7 @@ class Controller {
                 }
             )
 
-            res.redirect(`/patient/history?s=${emr.formattedDate}`);
+            res.redirect(`/patient/history?s=${emr.Histories[0].formmatedDate}`);
         } catch (err) {
             console.log(err);
 
@@ -501,6 +507,9 @@ class Controller {
                 where: {
                     status: {
                         [Op.eq]: 'belumdiizinkan'
+                    },
+                    DoctorId: {
+                        [Op.eq]: req.session.userId
                     }
                 },
                 include: [

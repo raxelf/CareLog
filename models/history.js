@@ -3,6 +3,7 @@ const {
   Model,
   Op
 } = require('sequelize');
+const { getFormattedDateTime } = require('../helpers/helper');
 module.exports = (sequelize, DataTypes) => {
   class History extends Model {
     /**
@@ -23,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       History.belongsTo(models.Prescription, {
         foreignKey: "PrescriptionId"
       })
+    }
+
+    get formmatedDate() {
+      return getFormattedDateTime(this.updatedAt).split('-')[0];
     }
 
     static async getByPatientWithFilter(patientId, filter) {
