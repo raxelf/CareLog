@@ -395,6 +395,8 @@ class Controller {
                 ]
             });
 
+            if (!queue) throw "Antrian tidak ditemukan";
+
             let medicines = await Medicine.findAll();
 
             res.render('doctors/diagnose', { currentURL: req.originalUrl, queueId:id, queue, medicines })
@@ -605,6 +607,8 @@ class Controller {
                 }]
             });
 
+            if (!medicalRecord) throw "EMR tidak ditemukan";
+
             const history = medicalRecord.Histories[0];
             const queue = history.Queue;
             const patientProfile = queue.Patient.Profile;
@@ -663,6 +667,8 @@ class Controller {
                     ]
                 }]
             });
+
+            if (!medicalRecord) throw "Resep obat tidak ditemukan";
 
             const history = medicalRecord.Histories[0];
             const queue = history.Queue;
